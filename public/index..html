@@ -1,0 +1,92 @@
+<html>
+<head></head>
+
+<body>
+    <p>Hello eveyrone</p>
+
+    <canvas id="webgl">
+
+    </canvas>
+</body>
+
+<script src="library/webgl-utils.js"></script>
+<script src="library/webgl-debug.js"></script>
+<script src="library/cuon-utils.js"></script>
+
+<script>
+    var simpleFragPros = fetch("./glsl/simple_webgl.frag", {method: 'GET'});
+    var simpleVertPros = fetch("./glsl/simple_webgl.vert", {method: 'GET'});
+
+    //Prepare 
+    Promise.all([simpleVertPros, simpleFragPros])
+    .then( responses =>
+       Promise.all(responses.map(res => res.text()))
+    ).then((values) => {
+        StartWebGL(values[0], values[1]);
+    });
+
+    var StartWebGL = function(vert, frag) {
+        var canvas = document.getElementById("webgl");
+        console.log(canvas);
+
+        var gl = getWebGLContext(canvas);
+
+        if (!gl)
+            return;
+
+        if (!initShaders(gl, vert, frag)) {
+            console.log("Fail to initialize shader.");
+            return;
+        }
+
+        var n = initVertexBuffers(gl);
+        if (n < 0) {
+            console.log('Failed to set the positions of the vertices');
+            return;
+        }
+
+        gl.clearColor(0, 0, 0, 1);
+
+        // Clear <canvas>
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        // Draw three points
+        gl.drawArrays(gl.TRIANGLES, 0, n);
+    }
+
+
+    function initVertexBuffers(gl) {
+        var vertices = new Float32Array([
+            0.0, 0.5,   -0.5, -0.5,   0.5, -0.5
+        ]);
+        var n = 3; // The number of vertices
+
+        // Create a buffer object
+        var vertexBuffer = gl.createBuffer();
+        if (!vertexBuffer) {
+            console.log('Failed to create the buffer object');
+            return -1;
+        }
+
+        // Bind the buffer object to target
+        gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+        // Write date into the buffer object
+        gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+        var a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+        if (a_Position < 0) {
+            console.log('Failed to get the storage location of a_Position');
+            return -1;
+        }
+        // Assign the buffer object to a_Position variable
+        gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
+
+        // Enable the assignment to a_Position variable
+        gl.enableVertexAttribArray(a_Position);
+
+        return n;
+    }
+
+</script>
+
+</html>
