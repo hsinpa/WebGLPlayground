@@ -4,7 +4,7 @@
 <body>
     <p>REGL Texture Sample</p>
 
-    <canvas id="webgl" style="width: 45rem; height: 23rem;">
+    <canvas id="webgl" style="width: 45rem; height: 24rem;">
 
     </canvas>
 </body>
@@ -15,32 +15,30 @@
     var simpleFragPros = fetch("./glsl/simple_texture.frag", {method: 'GET'});
     var simpleVertPros = fetch("./glsl/simple_texture.vert", {method: 'GET'});
 
-    var image = new Promise(resolve => {
-                    const im = new Image();
-                    im.crossOrigin = "anonymous";
-                    im.src =
-                        "./image/BB_rank.PNG";
-                    im.onload = () => resolve(Object.assign(im, { style: "max-width:200px" }));
-                });
 
     let containerR = document.getElementById("webgl");    
     resizeCanvas(containerR);
 
     const regl = createREGL(containerR);
 
+    let tick;
+
     const DrawTexturePrepareShader = function() {
         //Prepare 
-        Promise.all([simpleVertPros, simpleFragPros, image])
+        Promise.all([simpleVertPros, simpleFragPros, GetImagePromise("./image/BB_rank.PNG"), GetImagePromise("./image/nosie_cloud.jpg")])
         .then( responses =>
             Promise.all(
-                [responses[0].text(), responses[1].text(), responses[2]]
+                [responses[0].text(), responses[1].text(), responses[2], responses[3]]
             )
         ).then((values) => {
-            DrawTextureWithShader(values[0], values[1], values[2]);
+
+            tick = regl.frame(function (context) {
+                DrawTextureWithShader(values[0], values[1], values[2], values[3], context.time);
+            })
         });
     }
 
-    var DrawTextureWithShader = function(vert, frag, img) {
+    var DrawTextureWithShader = function(vert, frag, img, noiseTex, time) {
         // This clears the color buffer to black and the depth buffer to 1
         regl.clear({
         color: [0, 0, 0, 1],
@@ -66,15 +64,15 @@
                 [-1, -1],
                 [1, 1],
                 [1, -1],
-                    
-
                 ]
 
         },
 
         uniforms: {
             color: [1, 0, 0, 1],
-            texture: regl.texture({data:img, flipY: true})
+            texture: regl.texture({data:img, flipY: true}),
+            noiseTex : regl.texture({data:noiseTex, wrap  : "repeat"}),
+            time : time
         },
 
         count: 6,
@@ -89,6 +87,17 @@
             canvas.width = width;
             canvas.height = height;
         }
+    }
+    
+    function GetImagePromise(imagePath) {
+        //./image/BB_rank.PNG
+        return new Promise(resolve => {
+                    const im = new Image();
+                    im.crossOrigin = "anonymous";
+                    im.src =
+                    imagePath;
+                    im.onload = () => resolve(Object.assign(im, { style: "width:256px;height:256px;" }));
+                });
     }
 
 
