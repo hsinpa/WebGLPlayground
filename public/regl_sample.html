@@ -4,7 +4,7 @@
 <body>
     <p>REGL Texture Sample</p>
 
-    <canvas id="webgl">
+    <canvas id="webgl" style="width: 45rem; height: 23rem;">
 
     </canvas>
 </body>
@@ -23,7 +23,9 @@
                     im.onload = () => resolve(Object.assign(im, { style: "max-width:200px" }));
                 });
 
-    let containerR = document.getElementById("webgl");
+    let containerR = document.getElementById("webgl");    
+    resizeCanvas(containerR);
+
     const regl = createREGL(containerR);
 
     const DrawTexturePrepareShader = function() {
@@ -56,16 +58,39 @@
         vert: vert,
 
         attributes: {
-            position: [-2, 0, 0, -2, 2, 2]
+            a_position: [
+                [-1, -1],
+                [-1, 1],
+                [1, 1],
+
+                [-1, -1],
+                [1, 1],
+                [1, -1],
+                    
+
+                ]
+
         },
 
         uniforms: {
-            texture: regl.texture(img)
+            color: [1, 0, 0, 1],
+            texture: regl.texture({data:img, flipY: true})
         },
 
-        count: 3
+        count: 6,
         })()
     }
+
+    function resizeCanvas(canvas) {
+        var width = canvas.clientWidth;
+        var height = canvas.clientHeight;
+        if (canvas.width != width ||
+            canvas.height != height) {
+            canvas.width = width;
+            canvas.height = height;
+        }
+    }
+
 
     DrawTexturePrepareShader();
 
