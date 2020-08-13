@@ -1,12 +1,47 @@
 <html>
 <head></head>
+<style>
+    .webgl_dev {
+        width: 40rem;
+        height: 25rem;
+        position: relative;
+    }
+
+    .webgl_dev button {
+        position:absolute; 
+        top:14%; 
+        left:4%;
+        font-size: 2rem;
+        background: transparent;
+        color : white;
+        border: none;
+        outline: none;
+    }
+
+    #webgl {
+        position:relative; 
+        width:100%; 
+        height:100%; 
+        z-index:-1;
+    }
+</style>
+    
 
 <body>
     <p>REGL Texture Sample</p>
 
-    <canvas id="webgl" style="width: 45rem; height: 24rem;">
+    <div class="webgl_dev">
+        <canvas id="webgl">
+        </canvas>
 
-    </canvas>
+        <button>Hello World</button>
+    </div>
+
+    <div class="slidecontainer">
+        <input type="range" min="0" max="1" step="0.01" value="0" class="slider" id="myRange">
+    </div>
+    
+
 </body>
 
 <script src="library/regl.min.js"></script>
@@ -22,16 +57,16 @@
     const regl = createREGL(containerR);
 
     let tick;
+    let transition = 0;
 
     const DrawTexturePrepareShader = function() {
         //Prepare 
-        Promise.all([simpleVertPros, simpleFragPros, GetImagePromise("./image/BB_rank.PNG"), GetImagePromise("./image/nosie_cloud.jpg")])
+        Promise.all([simpleVertPros, simpleFragPros, GetImagePromise("./image/BB_rank.PNG"), GetImagePromise("./image/glich_image.jpg")])
         .then( responses =>
             Promise.all(
                 [responses[0].text(), responses[1].text(), responses[2], responses[3]]
             )
         ).then((values) => {
-
             tick = regl.frame(function (context) {
                 DrawTextureWithShader(values[0], values[1], values[2], values[3], context.time);
             })
@@ -72,7 +107,8 @@
             color: [1, 0, 0, 1],
             texture: regl.texture({data:img, flipY: true}),
             noiseTex : regl.texture({data:noiseTex, wrap  : "repeat"}),
-            time : time
+            time : time,
+            transition : transition
         },
 
         count: 6,
@@ -100,8 +136,13 @@
                 });
     }
 
-
     DrawTexturePrepareShader();
+
+    let sliderDom = document.querySelector("#myRange");
+    sliderDom.addEventListener("input", (e) => {
+        OnSliderChange(e.target.value);
+        transition = parseFloat(e.target.value);
+    });
 
 </script>
 
