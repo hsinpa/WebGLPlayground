@@ -61,19 +61,22 @@
 
     const DrawTexturePrepareShader = function() {
         //Prepare 
-        Promise.all([simpleVertPros, simpleFragPros, GetImagePromise("./image/BB_rank.PNG"), GetImagePromise("./image/glich_image.jpg")])
+        Promise.all([simpleVertPros, simpleFragPros, 
+        GetImagePromise("./image/BB_rank.PNG"), 
+        GetImagePromise("./image/bubble_transition.jpg"),
+        GetImagePromise("./image/glich_image.jpg")  ])
         .then( responses =>
             Promise.all(
-                [responses[0].text(), responses[1].text(), responses[2], responses[3]]
+                [responses[0].text(), responses[1].text(), responses[2], responses[3], responses[4]]
             )
         ).then((values) => {
             tick = regl.frame(function (context) {
-                DrawTextureWithShader(values[0], values[1], values[2], values[3], context.time);
+                DrawTextureWithShader(values[0], values[1], values[2], values[3], values[4], context.time);
             })
         });
     }
 
-    var DrawTextureWithShader = function(vert, frag, img, noiseTex, time) {
+    var DrawTextureWithShader = function(vert, frag, img, transitionTex, noiseTex, time) {
         // This clears the color buffer to black and the depth buffer to 1
         regl.clear({
         color: [0, 0, 0, 1],
@@ -106,6 +109,7 @@
         uniforms: {
             color: [1, 0, 0, 1],
             texture: regl.texture({data:img, flipY: true}),
+            transitionTex : regl.texture({data:transitionTex, wrap  : "repeat"}),
             noiseTex : regl.texture({data:noiseTex, wrap  : "repeat"}),
             time : time,
             transition : transition
@@ -140,7 +144,7 @@
 
     let sliderDom = document.querySelector("#myRange");
     sliderDom.addEventListener("input", (e) => {
-        OnSliderChange(e.target.value);
+        //console.log(e.target.value);
         transition = parseFloat(e.target.value);
     });
 
