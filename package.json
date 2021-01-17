@@ -1,0 +1,30 @@
+{
+  "name": "WebGL_Special_Effect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "npx webpack --watch",
+    "build": "npx webpack",
+    "server": "./node_modules/.bin/webpack-dev-server --config webpack.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/underscore": "*",
+    "mini-css-extract-plugin": "^1.3.4",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.1",
+    "source-map-loader": "^2.0.0",
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.1.3",
+    "webpack": "^5.15.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "typescript-collections": "^1.3.3",
+    "underscore": "*"
+  }
+}
