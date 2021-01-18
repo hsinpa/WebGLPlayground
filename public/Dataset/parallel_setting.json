@@ -1,0 +1,19 @@
+{
+    "elements" : [
+        {
+            "id" : ".parallel_effect img[name='building']",
+            "depth_level" : 0.2
+        },
+        {
+            "id" : ".parallel_effect .parallel_holder",
+            "depth_level" : 0.5
+        },
+        {
+            "id" : ".parallel_effect img[name='falling_tree']",
+            "depth_level" : 0.9
+        }
+    ],
+    "strength" : 50,
+    "lerp" : 1
+
+}
