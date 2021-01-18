@@ -3,7 +3,6 @@ import DeepParallel from './DeepParallel/DeepParallel';
 import {ParallelDataType} from './DeepParallel/ParallelDataType';
 
 window.onload = () => {
-    console.log("ONLOAD");
     let parallelModule = new DeepParallel( document.querySelector("body") );
     
     fetch('./Dataset/parallel_setting.json')

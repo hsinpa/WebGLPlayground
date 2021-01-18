@@ -19,9 +19,11 @@ class DeepParallel {
     }
 
     public SetConfig(config :ParallelDataType) {
+        console.log("ONLOAD");
+
         this._config = config;
 
-        this.Dispose();
+        //this.Dispose();
         
         //Find Element in DOM
         this._config.elements.forEach(x => {
