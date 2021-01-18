@@ -50,12 +50,25 @@ class DeepParallel {
     }
 
     private UpdateProcess() {
+
+        let diff = Math.abs(this._targetOffsetX-this._recordOffsetX) + Math.abs(this._recordOffsetY - this._targetOffsetY);
+
+        if (diff < 0.01) return;
+
         this._recordOffsetX = Lerp(this._recordOffsetX, this._targetOffsetX, this._config.lerp);
-        this._recordOffsetY = Lerp(this._recordOffsetY, this._targetOffsetY, this._config.lerp);    
+        this._recordOffsetY = Lerp(this._recordOffsetY, this._targetOffsetY, this._config.lerp);
+            
+        if (isNaN(this._recordOffsetY))
+            this._recordOffsetY = 0;
+
+        if (isNaN(this._recordOffsetX))
+            this._recordOffsetX = 0;
+
         this.Translate(this._recordOffsetX, this._recordOffsetY); 
     }
 
     private Translate(mouseOffsetX : number, mouseOffsetY : number) {
+        console.log(this._recordOffsetY);
         this._config.elements.forEach(element => {
             let domOffsetX =  mouseOffsetX * this._config.strength * element.depth_level;
             let domOffsetY =  mouseOffsetY * this._config.strength * element.depth_level;
