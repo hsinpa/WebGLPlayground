@@ -20,11 +20,11 @@ module.exports = {
     },
 
     output: {
-        path: path.resolve(__dirname, 'public/builds'),
+        path: path.resolve(__dirname, 'docs/builds'),
         publicPath: '/builds'
     },
     devServer: {
-        contentBase: path.join(__dirname, 'public'),
+        contentBase: path.join(__dirname, 'docs'),
         compress: true,
         port: 9000,
         writeToDisk: true
