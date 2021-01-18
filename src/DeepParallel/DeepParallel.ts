@@ -7,5 +7,7 @@ class DeepParallel {
 
     public SetConfig(config_object : any) {
 
-    }
+    }   
 }
+
+export default DeepParallel;

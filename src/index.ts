@@ -1,3 +1,9 @@
-console.log("Hello world");
-console.log("Tje best s");
-console.log("Tje best qwe");
+import './stylesheet/main.scss';
+import DeepParallel from './DeepParallel/DeepParallel';
+
+window.onload = () => {
+    console.log("ONLOAD");
+    let parallelModule = new DeepParallel();
+    
+
+};
