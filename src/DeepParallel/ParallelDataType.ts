@@ -1,3 +1,5 @@
+import {StringVector2} from '../Hsinpa/UniversalType';
+
 export interface ParallelDataType {
     elements : ParallelDomElement[];
     lerp : number;
@@ -20,14 +22,4 @@ export interface ParallelCondtionType {
     condition : string;
     position : StringVector2;
     size : StringVector2;
-}
-
-export interface IntVector2 {
-    x : number;
-    y : number;
-}
-
-export interface StringVector2 {
-    x : string;
-    y : string;
 }

@@ -68,7 +68,6 @@ class DeepParallel {
     }
 
     private Translate(mouseOffsetX : number, mouseOffsetY : number) {
-        console.log(this._recordOffsetY);
         this._config.elements.forEach(element => {
             let domOffsetX =  mouseOffsetX * this._config.strength * element.depth_level;
             let domOffsetY =  mouseOffsetY * this._config.strength * element.depth_level;
