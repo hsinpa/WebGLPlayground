@@ -41,5 +41,5 @@ let bubbleEffect = new BubbleEffect2D(document.querySelector("#webgl_canvas"));
 //Direction only work with top->bottom / bottom->top only
 bubbleEffect.Play(bubble_count : number, bubble_speed : number, direction:Vector2);
 ```
-Full Setup can be find at /src/index.ts
+Full Setup can be find at {root}/src/index.ts
 
