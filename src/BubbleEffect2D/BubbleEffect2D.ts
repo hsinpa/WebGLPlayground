@@ -42,15 +42,19 @@ class BubbleEffect2D {
         this.bubbles = [];
         this.speed = speed;
         this.bubbleNum = bubbleNum;
-        this.direction = Normalize2D(direction);
 
-        this.spawnPosSetting = this.FindStartPos();
+        this.SetDireciton(direction);
         this._intervalFunc = setInterval(this.UpdateProcess.bind(this), this._fps);
 
         //Don't spawn everything at the start
         for (let i = 0; i < bubbleNum; i++) {
             this.SpawnBubble(true);
         }
+    }
+
+    public SetDireciton(direction : IntVector2) {
+        this.direction = Normalize2D(direction);
+        this.spawnPosSetting = this.FindStartPos();
     }
 
     public Stop() {
@@ -88,7 +92,7 @@ class BubbleEffect2D {
         bubble.Radius = RandomRange(2, this.maxBubbleSize);
 
         let randomSpeed = this.speed * 0.2;
-        bubble.Speed = RandomRange(this.speed - randomSpeed, this.speed + randomSpeed);
+        bubble.SpeedOffset = RandomRange(randomSpeed, randomSpeed);
 
         //Usually on initialize bubble
         if (spawnFullScreen || bubble.Opacity < 0.2 || (bubble.Radius < this.maxBubbleSize * 0.7)) {
@@ -116,14 +120,14 @@ class BubbleEffect2D {
         this._context.beginPath();
 
         //Make the track path curving
-        let lerpX = bubble.EndPoint.x + (Math.sin((this._tick + bubble.Speed) ) * 1);
+        let lerpX = bubble.EndPoint.x + (Math.sin((this._tick + bubble.SpeedOffset) ) * 1);
 
         bubble.CurrentEndPoint.x = lerpX;
 
         let dist : IntVector2 = {x : bubble.CurrentEndPoint.x - bubble.CurrentPoint.x, y : bubble.CurrentEndPoint.y - bubble.CurrentPoint.y };
         bubble.Direction = Normalize2D(dist);
 
-        let offsetVec = VectorNumScale(bubble.Direction, (bubble.Speed * this.delta));
+        let offsetVec = VectorNumScale(bubble.Direction, ((bubble.SpeedOffset + this.speed) * this.delta));
         bubble.CurrentPoint = VectorAdd(bubble.CurrentPoint, offsetVec);
         bubble.CurrentOpacity = Lerp(bubble.CurrentOpacity, bubble.Opacity, 0.03);
 

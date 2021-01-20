@@ -9,5 +9,5 @@ export interface BubbleType {
     CurrentPoint : IntVector2;
     CurrentEndPoint : IntVector2;
     CurrentOpacity : number;
-    Speed : number;
+    SpeedOffset : number;
 }
