@@ -32,9 +32,18 @@ export function VectorNumScale(vector : IntVector2, scale : number) {
     };
 }
 
+export function VectorDistance(a : IntVector2, b : IntVector2) {
+    return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2));
+}
+
 export function VectorAdd(a : IntVector2, b : IntVector2) {
     return {
         x : a.x + b.x,
         y : a.y + b.y
     }
 }
+
+export function Clamp(min : number, max : number) {
+    return Math.min(Math.max(this, min), max);
+  };
+  

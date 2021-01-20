@@ -1,7 +1,6 @@
 import {StringVector2, IntVector2} from '../Hsinpa/UniversalType';
 import {BubbleType} from './BubbleEffectType';
-import {RandomRange, Normalize2D, VectorAdd, VectorNumAdd, VectorNumScale} from '../Hsinpa/UtilityMethod';
-
+import {RandomRange, Normalize2D, VectorAdd, VectorNumAdd, VectorNumScale, VectorDistance} from '../Hsinpa/UtilityMethod';
 
 interface PossiblePosSetting {
     StartHeight : number;
@@ -49,7 +48,7 @@ class BubbleEffect2D {
         this._intervalFunc = setInterval(this.UpdateProcess.bind(this), 1000/60);
 
         for (let i = 0; i < bubbleNum; i++) {
-            this.SpawnBubble();
+            this.SpawnBubble(true);
         }
     }
 
@@ -65,31 +64,45 @@ class BubbleEffect2D {
         
         for (let i = currentBubbleCount - 1; i >= 0; i--) {
             this.DrawBubble(this.bubbles[i]);
+
+            if (this.CheckBubbleDistReach(this.bubbles[i])) {
+                this.bubbles.splice(i, 1);
+                console.log("Delete Bubble index " + i);
+                if (currentBubbleCount < this.bubbleNum) {
+                    
+
+                    this.SpawnBubble();
+                }
+            }
         }
     }
 
-    private SpawnBubble() {
+    private SpawnBubble(spawnFullScreen : boolean = false) {
         let bubble : any = {};
-        bubble.Opacity = RandomRange(0.1, 0.9);
-        bubble.Radius = RandomRange(5, this.maxBubbleSize);
+        bubble.Opacity = RandomRange(0.1, 0.7);
+        bubble.Radius = RandomRange(3, this.maxBubbleSize);
 
-        bubble.StartPoint = {x : RandomRange(this.spawnPosSetting.WidthRange.x, this.spawnPosSetting.WidthRange.y), 
-                             y : this.spawnPosSetting.StartHeight};
+        //Usually on initialize bubble
+        if (spawnFullScreen || bubble.Opacity < 0.3 || (bubble.Radius < this.maxBubbleSize * 0.6)) {
+            bubble.StartPoint = this.GetRandomFullScreenPos();
+        } else {
+            bubble.StartPoint = {x : RandomRange(this.spawnPosSetting.WidthRange.x, this.spawnPosSetting.WidthRange.y), 
+                                y : this.spawnPosSetting.StartHeight};
+        }
 
         bubble.EndPoint = {x : RandomRange(this.spawnPosSetting.WidthRange.x, this.spawnPosSetting.WidthRange.y), 
                             y : this.spawnPosSetting.EndHeight};
 
         bubble.CurrentPoint = bubble.StartPoint;
 
-
-        let dist : IntVector2 = {x : bubble.EndPoint.x - bubble.StartPoint.x, y : bubble.EndPoint.y - bubble.StartPoint.y };
-        bubble.Direction = Normalize2D(dist);
-
         this.bubbles.push(bubble);
     }
 
     private DrawBubble(bubble : BubbleType) {
         this._context.beginPath();
+
+        let dist : IntVector2 = {x : bubble.EndPoint.x - bubble.StartPoint.x, y : bubble.EndPoint.y - bubble.StartPoint.y };
+        bubble.Direction = Normalize2D(dist);
 
         let offsetVec = VectorNumScale(bubble.Direction, (this.speed * this.delta));
         bubble.CurrentPoint = VectorAdd(bubble.CurrentPoint, offsetVec);
@@ -101,6 +114,12 @@ class BubbleEffect2D {
         this._context.arc(bubble.CurrentPoint.x, bubble.CurrentPoint.y, bubble.Radius, startAngle, endAngle, anticlockwise);
         this._context.fillStyle = `rgba(245, 225, 5, ${bubble.Opacity})`;
         this._context.fill();
+    }
+
+    private CheckBubbleDistReach(bubble : BubbleType) : boolean {
+        let distance = VectorDistance(bubble.CurrentPoint, bubble.EndPoint);
+
+        return (distance < 5);
     }
 
     private FindStartPos() : PossiblePosSetting {
@@ -123,6 +142,11 @@ class BubbleEffect2D {
         }
 
         return setting;
+    }
+
+    private GetRandomFullScreenPos() : IntVector2 {
+        return {x : RandomRange(0, this.screenWidth, ), 
+                y : RandomRange(0, this.screenHeight)};
     }
 
     private SetCanvasSize() {

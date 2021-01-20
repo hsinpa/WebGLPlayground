@@ -16,5 +16,5 @@ window.onload = () => {
     });
 
     let bubbleEffect = new BubbleEffect2D(document.querySelector("#webgl_canvas"));
-    bubbleEffect.Play(50, 40, {x:0.5, y : 1});
+    bubbleEffect.Play(100, 40, {x:0.5, y : 1});
 };
