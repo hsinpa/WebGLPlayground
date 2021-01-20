@@ -7,4 +7,7 @@ export interface BubbleType {
     Radius : number;
     Direction : IntVector2;
     CurrentPoint : IntVector2;
+    CurrentEndPoint : IntVector2;
+    CurrentOpacity : number;
+    Speed : number;
 }

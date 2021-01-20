@@ -43,7 +43,7 @@ export function VectorAdd(a : IntVector2, b : IntVector2) {
     }
 }
 
-export function Clamp(min : number, max : number) {
-    return Math.min(Math.max(this, min), max);
+export function Clamp(value : number, min : number, max : number) {
+    return Math.min(Math.max(value, min), max);
   };
   
