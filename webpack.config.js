@@ -47,10 +47,12 @@ module.exports = {
                 test: /\.js$/,
                 loader: "source-map-loader"
             },
+
             {
                 test: /\.(scss|sass|css)$/,
                 use: [
                     MiniCssExtractPlugin.loader,
+                    "cache-loader",
                     "css-loader",
                     "sass-loader"
                 ]
