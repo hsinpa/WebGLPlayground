@@ -73,7 +73,9 @@ class DeepParallel {
             let domOffsetY =  mouseOffsetY * this._config.strength * element.depth_level;
 
             let translate = `translate(${domOffsetX}px, ${domOffsetY}px)`;
-            element.dom.style.transform = translate;
+
+            if (element.dom != null)
+                element.dom.style.transform = translate;
         });
     }
 

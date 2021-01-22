@@ -27,18 +27,25 @@ class BubbleEffect2D {
 
     private maxBubbleSize = 10;
 
+    public IsProgramValid : boolean = false;
+
     constructor(canvasDom: HTMLCanvasElement) {
         this._canvasDom = canvasDom;
-        this._context = this._canvasDom.getContext("2d");
+        this.IsProgramValid = this._canvasDom != null;
 
-        window.addEventListener('resize', () => {
+        if (this.IsProgramValid) {
+            this._context = this._canvasDom.getContext("2d");
+
+            window.addEventListener('resize', () => {
+                this.SetCanvasSize();
+            });
+    
             this.SetCanvasSize();
-        });
-
-        this.SetCanvasSize();
+        }
     }
 
     public Play(bubbleNum : number, speed : number, direction : IntVector2) {
+        if (!this.IsProgramValid) return;
         this.bubbles = [];
         this.speed = speed;
         this.bubbleNum = bubbleNum;

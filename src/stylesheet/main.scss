@@ -16,14 +16,15 @@ body {
     // height:100%;
     z-index: 1;
 }
+
 .control_panel {
     position: absolute;
     top: 3rem;
     left: 3rem;
     z-index: 2;
 }
-.parallel_effect {
 
+.parallel_effect {
     img[name="building"] {
         left: 0; 
         right: 0; 
@@ -52,12 +53,15 @@ body {
             display:block;
             left : 5rem;
         }
-   
-       img[name="miko"] {
-        position: relative;
-        display:block;
-      }
+    }
+}
 
+.slide_panel {
+    &[data-visibility="true"] {
+        visibility:visible;
     }
 
+    &[data-visibility="false"] {
+        visibility: hidden;
+    }
 }

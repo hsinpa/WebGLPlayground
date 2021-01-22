@@ -16,24 +16,26 @@ window.onload = () => {
     });
 
     let bubbleEffect = new BubbleEffect2D(document.querySelector("#webgl_canvas"));
-    let bubbleCount : any = document.querySelector("#particle_count");
-    let bubbleSpeed : any = document.querySelector("#particle_speed");
-    let bubbleInvertBox : any = document.querySelector("#particle_d_invert");
-
-    console.log("bubbleCount "+ bubbleCount.value);
-
-    bubbleCount.addEventListener("change", (e : any) => {
-        bubbleEffect.bubbleNum = parseInt(e.target.value);
-    });
-
-    bubbleSpeed.addEventListener("change", (e : any) => {
-        bubbleEffect.speed = parseInt(e.target.value);
-    });
-
-    bubbleInvertBox.addEventListener("change", (e : any) => {
-        bubbleEffect.SetDireciton( {x:0, y : (bubbleInvertBox.checked) ? -1 : 1} );
-    });
-
-    let direction = {x:0, y : (bubbleInvertBox.checked) ? -1 : 1};
-    bubbleEffect.Play(parseInt(bubbleCount.value), parseInt(bubbleSpeed.value), direction);
+    if (bubbleEffect.IsProgramValid) {
+        let bubbleCount : any = document.querySelector("#particle_count");
+        let bubbleSpeed : any = document.querySelector("#particle_speed");
+        let bubbleInvertBox : any = document.querySelector("#particle_d_invert");
+    
+        console.log("bubbleCount "+ bubbleEffect);
+    
+        bubbleCount.addEventListener("change", (e : any) => {
+            bubbleEffect.bubbleNum = parseInt(e.target.value);
+        });
+    
+        bubbleSpeed.addEventListener("change", (e : any) => {
+            bubbleEffect.speed = parseInt(e.target.value);
+        });
+    
+        bubbleInvertBox.addEventListener("change", (e : any) => {
+            bubbleEffect.SetDireciton( {x:0, y : (bubbleInvertBox.checked) ? -1 : 1} );
+        });
+    
+        let direction = {x:0, y : (bubbleInvertBox.checked) ? -1 : 1};
+        bubbleEffect.Play(parseInt(bubbleCount.value), parseInt(bubbleSpeed.value), direction);  
+    }
 };
