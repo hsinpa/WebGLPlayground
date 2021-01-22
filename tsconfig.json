@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "outDir": "./public/builds/",
+        "outDir": "./docs/builds/",
         "sourceMap": true,
         "noImplicitAny": true,
         "removeComments": true,
