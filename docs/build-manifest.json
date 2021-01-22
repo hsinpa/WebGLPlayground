@@ -1,0 +1,93 @@
+{
+  "inputs": {
+    "dist/stylesheet/main.css": {
+      "bytes": 813,
+      "imports": []
+    },
+    "dist/Hsinpa/UtilityMethod.js": {
+      "bytes": 871,
+      "imports": []
+    },
+    "dist/DeepParallel/DeepParallel.js": {
+      "bytes": 1962,
+      "imports": [
+        {
+          "path": "dist/Hsinpa/UtilityMethod.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/BubbleEffect2D/BubbleEffect2D.js": {
+      "bytes": 4747,
+      "imports": [
+        {
+          "path": "dist/Hsinpa/UtilityMethod.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/index.js": {
+      "bytes": 1280,
+      "imports": [
+        {
+          "path": "dist/stylesheet/main.css",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/DeepParallel/DeepParallel.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/BubbleEffect2D/BubbleEffect2D.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "regl_sample.html.inline.0.css": {
+      "bytes": 428,
+      "imports": []
+    }
+  },
+  "outputs": {
+    "../~~bundle~~/dist/index.js": {
+      "imports": [],
+      "exports": [],
+      "inputs": {
+        "dist/stylesheet/main.css": {
+          "bytesInOutput": 0
+        },
+        "dist/Hsinpa/UtilityMethod.js": {
+          "bytesInOutput": 330
+        },
+        "dist/DeepParallel/DeepParallel.js": {
+          "bytesInOutput": 1254
+        },
+        "dist/BubbleEffect2D/BubbleEffect2D.js": {
+          "bytesInOutput": 2835
+        },
+        "dist/index.js": {
+          "bytesInOutput": 674
+        }
+      },
+      "bytes": 5094
+    },
+    "../~~bundle~~/dist/index.css": {
+      "imports": [],
+      "inputs": {
+        "dist/stylesheet/main.css": {
+          "bytesInOutput": 813
+        }
+      },
+      "bytes": 814
+    },
+    "../~~bundle~~/regl_sample.html.inline.0.css": {
+      "imports": [],
+      "inputs": {
+        "regl_sample.html.inline.0.css": {
+          "bytesInOutput": 239
+        }
+      },
+      "bytes": 240
+    }
+  }
+}

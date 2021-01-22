@@ -37,15 +37,15 @@ class DeepParallel {
     }
 
     private OnMouseMove(event : MouseEvent) {
-        let screenWidth = this._domBody.offsetWidth;
-        let screenHeight = this._domBody.offsetHeight;
+        let screenWidth = window.innerWidth;
+        let screenHeight = window.innerHeight;
         let nMouseX = event.clientX / screenWidth;
         let nMouseY = event.clientY / screenHeight;
 
         this._targetOffsetX = 0.5 - nMouseX;
         this._targetOffsetY = 0.5 - nMouseY;
 
-        // console.log(`screenHeight ${screenHeight}, screenWidth ${screenWidth}, event.clientX ${event.clientX}, event.clientY ${event.clientY}`);
+        //console.log(`screenHeight ${screenHeight}, screenWidth ${screenWidth}, event.clientX ${event.clientX}, event.clientY ${event.clientY}`);
         //console.log(`mouse moveement xOffset ${xOffset}, yOffset ${yOffset}`);
     }
 

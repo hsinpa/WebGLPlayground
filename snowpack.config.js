@@ -4,8 +4,8 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
   "mount": {
-    "src": {url: "/docs"},
-    "docs": {url : "/", static:true}
+    "src": {url: "/dist"},
+    "public": {url : "/", static:true}
    },
   plugins: [  
     [
@@ -28,7 +28,13 @@ module.exports = {
     open : 'none'
   },
   buildOptions: {
-    /* ... */
-    out : "docs/builds",
+    //Build to docs folder for Github page
+    out : "docs",
   },
+  
+  "optimize": {
+    "bundle": true,
+    "minify": true,
+    "target": 'es2018'
+  }
 };

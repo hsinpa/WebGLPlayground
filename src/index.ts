@@ -1,7 +1,7 @@
 import './stylesheet/main.scss';
 import DeepParallel from './DeepParallel/DeepParallel';
 import BubbleEffect2D from './BubbleEffect2D/BubbleEffect2D';
-import SlideEffectAD from './SlideEffect_AD/SlideEffectAD';
+//import SlideEffectAD from './SlideEffect_AD/SlideEffectAD';
 
 import {ParallelDataType} from './DeepParallel/ParallelDataType';
 
@@ -24,9 +24,7 @@ window.onload = () => {
         let bubbleCount : any = document.querySelector("#particle_count");
         let bubbleSpeed : any = document.querySelector("#particle_speed");
         let bubbleInvertBox : any = document.querySelector("#particle_d_invert");
-    
-        console.log("bubbleCount "+ bubbleEffect);
-    
+        
         bubbleCount.addEventListener("change", (e : any) => {
             bubbleEffect.bubbleNum = parseInt(e.target.value);
         });
@@ -45,7 +43,7 @@ window.onload = () => {
     // ===================== END =====================
 
     // ===================== Slide Effect ADP6 SetUp Script =====================
-    let slideEffectAD = new SlideEffectAD("adp6_canvas");
+    //let slideEffectAD = new SlideEffectAD("adp6_canvas");
     
     // ===================== END =====================
 };

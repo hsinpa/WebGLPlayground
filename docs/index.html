@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head>
+    <title>Parallel Effect</title>
+<link rel="stylesheet" href="/dist/index.css"></head>
+<body>
+
+    <div class="parallel_effect">
+
+        <canvas id="webgl_canvas"></canvas>
+
+        <img src="image/Art/shrine-fushimi-inari-taish-japan.png" name="building" depth="0.9">
+
+        <div class="parallel_holder">
+            <img src="image/Art/touhou_character_01.png" name="miko" depth="0.5">
+            <img src="image/Art/touhou_subtitle_01.png" name="miko_subtitle" depth="0.5">    
+        </div>
+
+        <img src="image/Art/falling_tree.png" name="falling_tree" depth="0.2">    
+    </div>
+
+
+<div class="control_panel">
+    <h3>Particle Control Panel</h3>
+    <label>Particle Count</label>
+    <input type="range" min="0" max="400" step="1" value="50" class="slider" id="particle_count">
+    <br>
+    <label>Particle Speed</label>
+    <input type="range" min="0" max="200" step="10" value="40" class="slider" id="particle_speed">
+    <br>
+    <label>Invert Particle Direction</label>
+    <input type="checkbox" id="particle_d_invert" name="particle_d_invert" value="isInvert">
+
+</div>
+
+<script type="module" src="./dist/index.js"></script>
+
+</body></html>
