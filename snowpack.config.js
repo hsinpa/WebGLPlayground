@@ -30,6 +30,7 @@ module.exports = {
   buildOptions: {
     //Build to docs folder for Github page
     out : "docs",
+    baseUrl : "./"
   },
   
   "optimize": {
