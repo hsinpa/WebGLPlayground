@@ -58,20 +58,61 @@ body {
 
 .slide_panel {
     &[data-visibility="true"] {
-        visibility:visible;
+        display: inline;
     }
 
     &[data-visibility="false"] {
-        visibility: hidden;
+        display: none;
     }
 
-    &[name="touhou_6"]{
-        position: absolute;
+    &[name="touhou_6"] {
+        position: fixed;
         max-width: 50rem;
         left: 0; 
         right: 0; 
         margin-left: auto; 
         margin-right: auto; 
-        bottom : 10rem;
+        top : 40vh;
+        
+        p, h2, h3 {
+            color: black;
+            -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+            -webkit-text-stroke-width: 0.2px;
+            -webkit-text-stroke-color: black;
+        }
+
+        p {
+            font-size: 1.5rem;
+        }
+        animation-duration: 3s;
+        //animation-name: slidein; 
+        animation-fill-mode: forwards;     
     }
+
+    @keyframes slidein {
+        0% {
+            transform: scale(1,1);
+            filter: blur(0px);
+        }
+      
+        20% {
+          transform: scale(0.8,0.8);
+          filter: blur(1);
+        }
+
+        100%{
+            transform: translate(0, 1000px);
+            filter: blur(5px) saturate(5);  
+        }
+    }
+}
+
+.adp6_canvas_2d {
+    display: none;
+}
+
+.control_bar {
+    position: fixed;
+    top : 1rem;
+    left : 1rem;
 }

@@ -1,7 +1,7 @@
 import './stylesheet/main.scss';
 import DeepParallel from './DeepParallel/DeepParallel';
 import BubbleEffect2D from './BubbleEffect2D/BubbleEffect2D';
-//import SlideEffectAD from './SlideEffect_AD/SlideEffectAD';
+import SlideEffectAD from './SlideEffect_AD/SlideEffectAD';
 
 import {ParallelDataType} from './DeepParallel/ParallelDataType';
 
@@ -43,7 +43,28 @@ window.onload = () => {
     // ===================== END =====================
 
     // ===================== Slide Effect ADP6 SetUp Script =====================
-    //let slideEffectAD = new SlideEffectAD("adp6_canvas");
+    let vertFilePath = "./glsl/simple_texture.vert", fragFilePath = "./glsl/slide_effect_ad6.frag";
+    let slideEffectAD = new SlideEffectAD(".adp6_canvas_2d", ".adp6_canvas_webgl", vertFilePath, fragFilePath);
+    if (slideEffectAD.IsProgramValid) {
+        let sliderStrength : any = document.querySelector("input[name='strength']");
+        let sliderSpeed : any = document.querySelector("input[name='speed']");
+        
+        sliderStrength.addEventListener("input", (e : any) => {
+
+            let sliderLabel: any = document.querySelector("label[name='strength']");
+            sliderLabel.innerHTML = "Strength " + e.target.value;
+
+            slideEffectAD.webglStrength = parseFloat(e.target.value);
+        });
     
+        sliderSpeed.addEventListener("input", (e : any) => {
+
+            let sliderLabel: any = document.querySelector("label[name='speed']");
+            sliderLabel.innerHTML = "Speed " + e.target.value;
+
+            slideEffectAD.webglSpeed = parseFloat(e.target.value);
+        });
+    }
+
     // ===================== END =====================
 };

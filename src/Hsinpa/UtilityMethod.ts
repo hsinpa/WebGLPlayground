@@ -47,3 +47,14 @@ export function Clamp(value : number, min : number, max : number) {
     return Math.min(Math.max(value, min), max);
   };
   
+
+export function GetImagePromise(imagePath : string) {
+    return new Promise<HTMLImageElement>( resolve => {
+        const im = new Image();
+        im.crossOrigin = "anonymous";
+        im.src = imagePath;
+        im.onload = () => resolve(Object.assign(im));
+
+        return im;
+    });
+}

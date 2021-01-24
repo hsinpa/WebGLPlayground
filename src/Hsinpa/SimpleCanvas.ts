@@ -24,11 +24,14 @@ abstract class SimpleClass {
     }
 
     protected SetCanvasSize() {
-        this._canvasDom.width = window.innerWidth;
-        this._canvasDom.height = window.innerHeight;
+        this.SetCanvasToSceenSize(this._canvasDom);
+        this.screenHeight = window.innerHeight;
+        this.screenWidth = window.innerWidth;
+    }
 
-        this.screenHeight = this._canvasDom.offsetHeight;
-        this.screenWidth = this._canvasDom.offsetWidth;
+    public SetCanvasToSceenSize(canvas : HTMLCanvasElement) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
 }
 
