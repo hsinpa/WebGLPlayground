@@ -44,27 +44,44 @@ window.onload = () => {
 
     // ===================== Slide Effect ADP6 SetUp Script =====================
     let vertFilePath = "./glsl/simple_texture.vert", fragFilePath = "./glsl/slide_effect_ad6.frag";
-    let slideEffectAD = new SlideEffectAD(".adp6_canvas_2d", ".adp6_canvas_webgl", vertFilePath, fragFilePath);
-    if (slideEffectAD.IsProgramValid ) {
-        let sliderStrength : any = document.querySelector("input[name='strength']");
-        let sliderSpeed : any = document.querySelector("input[name='speed']");
-        let sliderScale : any = document.querySelector("input[name='scale']");
 
-        sliderStrength.addEventListener("input", (e : any) => {
+    fetch('./Dataset/sliding_setting.json')
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(myJson) {
+        let slideEffectAD = new SlideEffectAD(".adp6_canvas_2d", ".adp6_canvas_webgl", vertFilePath, fragFilePath, myJson);
 
-            let sliderLabel: any = document.querySelector("label[name='strength']");
-            sliderLabel.innerHTML = "Strength " + e.target.value;
+        if (slideEffectAD.IsProgramValid ) {
 
-            slideEffectAD.webglStrength = parseFloat(e.target.value);
-        });
+            let sliderStrength : any = document.querySelector("input[name='strength']");
+            let sliderSpeed : any = document.querySelector("input[name='speed']");
+            let sliderScale : any = document.querySelector("input[name='scale']");
     
-        sliderScale.addEventListener("input", (e : any) => {
-            let sliderLabel: any = document.querySelector("label[name='scale']");
-            sliderLabel.innerHTML = "Scale " + e.target.value;
+            sliderStrength.addEventListener("input", (e : any) => {
+    
+                let sliderLabel: any = document.querySelector("label[name='strength']");
+                sliderLabel.innerHTML = "Strength " + e.target.value;
+    
+                slideEffectAD.webglStrength = parseFloat(e.target.value);
+            });
+        
+            sliderSpeed.addEventListener("input", (e : any) => {
+                let sliderLabel: any = document.querySelector("label[name='speed']");
+                sliderLabel.innerHTML = "Scale " + e.target.value;
+    
+                slideEffectAD.webglSpeed = parseFloat(e.target.value);
+            });
+    
+            sliderScale.addEventListener("input", (e : any) => {
+                let sliderLabel: any = document.querySelector("label[name='scale']");
+                sliderLabel.innerHTML = "Scale " + e.target.value;
+    
+                slideEffectAD.webglScale = parseFloat(e.target.value);
+            });
+        }
 
-            slideEffectAD.webglScale = parseFloat(e.target.value);
-        });
-    }
+    });
 
     // ===================== END =====================
 };

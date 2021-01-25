@@ -20,8 +20,6 @@ void main () {
     //     return;
     // }
 
-    //v_uv = (v_uv - 0.5) * scale + 0.5;
-
     vec4 noiseOffset = texture2D(noiseTex, vec2(uv.x + t,  uv.y + sin(t) * 0.25));
     float normalizeOffset = ( ((noiseOffset.x * 2.0) - 1.0)) * strength;
     vec4 finalColor = texture2D(texture, vec2(uv.x + normalizeOffset * 0.5, uv.y + (normalizeOffset)));

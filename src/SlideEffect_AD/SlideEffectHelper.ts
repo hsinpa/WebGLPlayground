@@ -1,7 +1,16 @@
-import REGL, {Regl} from 'regl';
+import REGL, {Regl, TextureImageData} from 'regl';
 import {GLSLDataSet, GLSLPropADP6} from './GLSLType';
+import {Dictionary} from 'typescript-collections';
+import {GetImagePromise, Lerp} from '../Hsinpa/UtilityMethod';
+
 
 class SlideEffectHelper {
+
+    textureCache : Dictionary<string, HTMLImageElement>;
+
+    constructor() {
+        this.textureCache = new Dictionary();
+    }
 
     async PrepareREGLShader(regl : Regl, vertFilePath: string, fragFilePath: string) {
         let VertPros = fetch(vertFilePath, {method: 'GET', credentials: 'include'});
@@ -59,6 +68,18 @@ class SlideEffectHelper {
 
             count: 6
         });
+    }
+
+    async GetImage(path : string) : Promise<HTMLImageElement> {
+
+        if (this.textureCache.containsKey(path)) {
+            return this.textureCache.getValue(path);
+        }
+
+        let texture = await GetImagePromise(path);
+        this.textureCache.setValue(path, texture);
+
+        return texture;         
     }
 }
 

@@ -1,0 +1,18 @@
+{
+    "slide_strength" : 0.03,
+    "slide_duration" : 3000,
+    "components" : [
+        {
+            "query" : ".slide_panel[name='touhou_6']",
+            "mainTex" : "./image/ADP9_Clone/TH06Main.jpg"
+        },
+        {
+            "query" : ".slide_panel[name='touhou_7']",
+            "mainTex" : "./image/ADP9_Clone/TH07Main.jpg"
+        },
+        {
+            "query" : ".slide_panel[name='touhou_9']",
+            "mainTex" : "./image/ADP9_Clone/TH09Main.jpg"
+        }
+    ]
+}

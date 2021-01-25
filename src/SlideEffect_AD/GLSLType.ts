@@ -19,3 +19,14 @@ export interface SlideAnimationType {
 export enum SlideEffectStateEnum {
     Normal, SlideUp, SlideDown
 }
+
+export interface SlideSettingSet {
+    slide_strength : number,
+    slide_duration : 3000,
+    components : SlideSettingComponent[]
+}
+
+export interface SlideSettingComponent {
+    query : string,
+    mainTex : string
+}
