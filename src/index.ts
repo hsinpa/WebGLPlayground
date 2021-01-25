@@ -7,15 +7,16 @@ import {ParallelDataType} from './DeepParallel/ParallelDataType';
 
 window.onload = () => {
     // ===================== Parallel Effect SetUp Script =====================
-    //let parallelModule = new DeepParallel( document.querySelector("body") );
+    let parallelModule = new DeepParallel( document.querySelector("body") );
     
-    // fetch('./Dataset/parallel_setting.json')
-    // .then(function(response) {
-    //     return response.json();
-    // })
-    // .then(function(myJson) {
-    //     parallelModule.SetConfig( myJson );
-    // });
+    fetch('./Dataset/parallel_setting.json')
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(myJson) {
+        
+        parallelModule.SetConfig( myJson );
+    });
     // ===================== END =====================
 
     // ===================== Bubble2D Effect SetUp Script =====================

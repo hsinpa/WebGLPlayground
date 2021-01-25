@@ -8,6 +8,15 @@
       "bytes": 1111,
       "imports": []
     },
+    "dist/DeepParallel/DeepParallel.js": {
+      "bytes": 2027,
+      "imports": [
+        {
+          "path": "dist/Hsinpa/UtilityMethod.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
     "dist/BubbleEffect2D/BubbleEffect2D.js": {
       "bytes": 4747,
       "imports": [
@@ -74,7 +83,7 @@
       ]
     },
     "dist/SlideEffect_AD/SlideEffectAD.js": {
-      "bytes": 6979,
+      "bytes": 6896,
       "imports": [
         {
           "path": "dist/Hsinpa/SimpleCanvas.js",
@@ -99,10 +108,14 @@
       ]
     },
     "dist/index.js": {
-      "bytes": 2441,
+      "bytes": 2743,
       "imports": [
         {
           "path": "dist/stylesheet/main.css",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/DeepParallel/DeepParallel.js",
           "kind": "import-statement"
         },
         {
@@ -134,6 +147,9 @@
         "dist/Hsinpa/UtilityMethod.js": {
           "bytesInOutput": 468
         },
+        "dist/DeepParallel/DeepParallel.js": {
+          "bytesInOutput": 1297
+        },
         "dist/BubbleEffect2D/BubbleEffect2D.js": {
           "bytesInOutput": 2851
         },
@@ -159,13 +175,13 @@
           "bytesInOutput": 317
         },
         "dist/SlideEffect_AD/SlideEffectAD.js": {
-          "bytesInOutput": 4384
+          "bytesInOutput": 4306
         },
         "dist/index.js": {
-          "bytesInOutput": 1406
+          "bytesInOutput": 1561
         }
       },
-      "bytes": 178489
+      "bytes": 179863
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],

@@ -15,15 +15,17 @@ class DeepParallel {
 
     constructor(body : HTMLElement) {
         this._domBody = body;
-        this._domBody.addEventListener('mousemove', this.OnMouseMove.bind(this));
     }
 
     public SetConfig(config :ParallelDataType) {
         console.log("ONLOAD");
 
         this._config = config;
+        if (this._config.elements.length <= 0) {
+            return;
+        }
 
-        //this.Dispose();
+        this._domBody.addEventListener('mousemove', this.OnMouseMove.bind(this));
         
         //Find Element in DOM
         this._config.elements.forEach(x => {

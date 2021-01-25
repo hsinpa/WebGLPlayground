@@ -51,15 +51,16 @@ class SlideEffectAD extends SimpleCanvas {
         this.IsProgramValid = (this.IsProgramValid && this._config != null &&  this._config.components.length > 0);
         if (this.IsProgramValid) {
             this.SetupWebglPipeline(webglQueryString, vertexFilePath, fragmentFilePath);
+        
+        
+            let tempNextBtn = document.querySelector("button[name='next']");
+            tempNextBtn.addEventListener('click', this.OnNextImageClick.bind(this));
+    
+            let tempPreviousBtn = document.querySelector("button[name='previous']");
+            tempPreviousBtn.addEventListener('click', this.OnPreviousImageClick.bind(this));
+    
+            window.addEventListener('wheel', this.OnWheelImageClick.bind(this));   
         }
-
-        let tempNextBtn = document.querySelector("button[name='next']");
-        tempNextBtn.addEventListener('click', this.OnNextImageClick.bind(this));
-
-        let tempPreviousBtn = document.querySelector("button[name='previous']");
-        tempPreviousBtn.addEventListener('click', this.OnPreviousImageClick.bind(this));
-
-        window.addEventListener('wheel', this.OnWheelImageClick.bind(this));
     }
 
     async SetupWebglPipeline(webglQueryString : string, vertexFilePath : string, fragmentFilePath : string) {
@@ -153,8 +154,6 @@ class SlideEffectAD extends SimpleCanvas {
 
     //#region  Sliding Effect Group
     OnWheelImageClick(event : WheelEvent) {
-        console.log(event.deltaY);
-
         if (event.deltaY > 0)
             this.OnNextImageClick(null);
 
@@ -172,7 +171,6 @@ class SlideEffectAD extends SimpleCanvas {
     //Test Purpose
     OnNextImageClick(event : MouseEvent) {
         if (this._index + 1 >= this._config.components.length) return;
-        console.log(this._index, this._config.components.length);
 
         this.OnSlideEffect(SlideEffectStateEnum.SlideDown, SlideDownParameter);
     }
