@@ -15,7 +15,7 @@ class SlideEffectAnimation {
                 onCompCallback();
             }, 
             onUpdate : (r) => {
-                console.log(r.scale +", " +r.y_position);
+                //console.log(r.scale +", " +r.y_position);
                 onUpdateCallback(r);
             }
         });

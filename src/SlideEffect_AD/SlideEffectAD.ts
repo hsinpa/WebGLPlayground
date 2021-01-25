@@ -3,7 +3,7 @@ import {GetImagePromise, Lerp} from '../Hsinpa/UtilityMethod';
 import SlideEffectHelper from './SlideEffectHelper';
 import SlideEffectAnimation from './SlideEffectAnimation';
 
-import {GLSLDataSet, GLSLPropADP6, SlideAnimationType, SlideEffectStateEnum, SlideSettingSet} from './GLSLType';
+import {SlideDownParameter, SlideUpParameter, SlideParameter, SlideAnimationType, SlideEffectStateEnum, SlideSettingSet} from './GLSLType';
 const reglPromise = import('regl');
 import REGL, {Regl} from 'regl';
 import {animate} from 'popmotion';
@@ -53,10 +53,13 @@ class SlideEffectAD extends SimpleCanvas {
             this.SetupWebglPipeline(webglQueryString, vertexFilePath, fragmentFilePath);
         }
 
-        console.log(this._config.components[0]);
-
         let tempNextBtn = document.querySelector("button[name='next']");
         tempNextBtn.addEventListener('click', this.OnNextImageClick.bind(this));
+
+        let tempPreviousBtn = document.querySelector("button[name='previous']");
+        tempPreviousBtn.addEventListener('click', this.OnPreviousImageClick.bind(this));
+
+        window.addEventListener('wheel', this.OnWheelImageClick.bind(this));
     }
 
     async SetupWebglPipeline(webglQueryString : string, vertexFilePath : string, fragmentFilePath : string) {
@@ -67,7 +70,7 @@ class SlideEffectAD extends SimpleCanvas {
         this.dynamicREGLTexture = this.reglCanvas.texture({data:this._canvasDom, flipY: true});
         this.reglDrawCommand  = await this.PrepareREGLCommand(this.reglCanvas, vertexFilePath, fragmentFilePath);
         this.DrawREGL(this.reglCanvas, this.reglDrawCommand);
-
+ 
         this.UpdateProcess();
     }
 
@@ -88,7 +91,6 @@ class SlideEffectAD extends SimpleCanvas {
         let self = this;
 
         this.reglFrame = regl.frame(function (context) {  
-
             if (self._state != SlideEffectStateEnum.Normal)
                 self.UpdateProcess();
 
@@ -117,12 +119,13 @@ class SlideEffectAD extends SimpleCanvas {
         let mainTexWidth = this.width * this.webglScale;
         let mainTexHeight = this.height * this.webglScale;
         let canvasPosX = (this.screenWidth * this.canvasPosX) - (mainTexWidth * this.canvasPosX);
-        let canvasPosY = (this.screenHeight * this.canvasPosY) - (mainTexHeight * this.canvasPosY);
+        let canvasPosY = (this.screenHeight * this.canvasPosY) - (mainTexHeight * 0.5);
 
         this._context.drawImage(this.mainImage, canvasPosX, canvasPosY, mainTexWidth, mainTexHeight);       
 
         if (this._state != SlideEffectStateEnum.Normal) {
-            let nextYPos = (this.screenHeight * (this.canvasPosY - 4.5)) - (mainTexHeight * this.canvasPosY);
+            let dir = (this._state == SlideEffectStateEnum.SlideDown) ? -1 : 1;
+            let nextYPos = (this.screenHeight * (this.canvasPosY + dir)) - (mainTexHeight * 0.5);
             this._context.drawImage(this.nextImage, canvasPosX, nextYPos, mainTexWidth, mainTexHeight);
         }
 
@@ -138,51 +141,81 @@ class SlideEffectAD extends SimpleCanvas {
 
         //Cache image first
         if (this._index >= 0 && (this._index + 1) < this._config.components.length) {
-            this.slideEffectHelper.GetImage(this._config.components[this._index++].mainTex);
+            this.slideEffectHelper.GetImage(this._config.components[this._index+1].mainTex);
         }
 
         if (this._index > 0) {
-            this.slideEffectHelper.GetImage(this._config.components[this._index--].mainTex);
+            this.slideEffectHelper.GetImage(this._config.components[this._index-1].mainTex);
         }
 
         //this.SetImageToCenter(this.mainImage, this.width, this.height);
     }
 
     //#region  Sliding Effect Group
+    OnWheelImageClick(event : WheelEvent) {
+        console.log(event.deltaY);
+
+        if (event.deltaY > 0)
+            this.OnNextImageClick(null);
+
+        if (event.deltaY < 0)
+            this.OnPreviousImageClick(null);
+    }
+
+
+    OnPreviousImageClick(event : MouseEvent) {
+        if (this._index <= 0) return;
+
+        this.OnSlideEffect(SlideEffectStateEnum.SlideUp, SlideUpParameter);
+    }
+
     //Test Purpose
-    async OnNextImageClick(event : MouseEvent) {
-        let panelDom : HTMLBodyElement = document.querySelector(".slide_panel[name='touhou_6']");
-        this.nextImage = await this.slideEffectHelper.GetImage(this._config.components[this._index++].mainTex);
+    OnNextImageClick(event : MouseEvent) {
+        if (this._index + 1 >= this._config.components.length) return;
+        console.log(this._index, this._config.components.length);
 
-        if (panelDom.style.animationName ==  "slidein") {
-            panelDom.style.animationName = "";
-            this._state = SlideEffectStateEnum.Normal;
-        } else {
-            panelDom.style.animationName = "slidein";
-            this._state = SlideEffectStateEnum.SlideDown;
+        this.OnSlideEffect(SlideEffectStateEnum.SlideDown, SlideDownParameter);
+    }
 
-            this.slideEffectAnimation.CreateSlideAnim(
-                [{y_position : this.canvasPosY, scale : this.webglScale, gl_strength : this.webglStrength},
-                {y_position : this.canvasPosY, scale : 0.9, gl_strength : 0.03},
-                 {y_position :5, scale : 1, gl_strength : 0.0}
-                ],
-                
-                
-                3000,
-                (x : SlideAnimationType) => {
+    async OnSlideEffect(state : SlideEffectStateEnum, slideParameter : SlideParameter ) {
+        if (this._state != SlideEffectStateEnum.Normal) return;
 
-                    this.canvasPosY = x.y_position;
-                    this.webglScale  =  x.scale;
+        let panelDom : HTMLBodyElement = document.querySelector(this._config.components[this._index].query);
+        let nextPanelDom : HTMLBodyElement = document.querySelector(this._config.components[this._index + slideParameter.direction].query);
 
-                    this.canvasPosY = (x.y_position);
+        this.nextImage = await this.slideEffectHelper.GetImage(this._config.components[this._index + slideParameter.direction].mainTex);
+
+        panelDom.style.animationName = slideParameter.cssAnimationNameOut;
+        nextPanelDom.style.animationName = slideParameter.cssAnimationNameIn;
+        nextPanelDom.setAttribute("data-visibility", "true");
+        this._state = state;
+
+        this.slideEffectAnimation.CreateSlideAnim(
+            [{y_position : this.canvasPosY, scale : this.webglScale, gl_strength : this.webglStrength},
+            {y_position : this.canvasPosY, scale : 0.9, gl_strength : 0.03},
+                {y_position : slideParameter.targetPosY, scale : 1, gl_strength : 0.0}
+            ],
             
-                    this.webglStrength = x.gl_strength;
+            3000,
+            (x : SlideAnimationType) => {
 
-                }, () => {
-                    this._index++;
-                    this._state = SlideEffectStateEnum.Normal;
-                });
-        }
+                this.canvasPosY = x.y_position;
+                this.webglScale  =  x.scale;
+
+                this.canvasPosY = (x.y_position);
+        
+                this.webglStrength = x.gl_strength;
+
+            }, () => {
+                this._index = this._index + slideParameter.direction;
+                this._state = SlideEffectStateEnum.Normal;
+                this.canvasPosY = 0.5;
+                panelDom.setAttribute("data-visibility", "false");
+                panelDom.style.animationName = "";
+                nextPanelDom.style.animationName = "";
+                this.LoadImages();
+            });
+
     }
     //#endregion
 

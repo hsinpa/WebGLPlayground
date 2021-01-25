@@ -30,3 +30,24 @@ export interface SlideSettingComponent {
     query : string,
     mainTex : string
 }
+
+export interface SlideParameter {
+    cssAnimationNameOut : string,
+    cssAnimationNameIn : string,
+    targetPosY : number,
+    direction : number
+}
+
+export let SlideDownParameter : SlideParameter = {
+    cssAnimationNameOut : "down_slideout",
+    cssAnimationNameIn : "down_slidein",
+    targetPosY : 1.5,
+    direction : 1
+};
+
+export let SlideUpParameter : SlideParameter = {
+    cssAnimationNameOut : "up_slideout",
+    cssAnimationNameIn : "up_slidein",
+    targetPosY : -0.5,
+    direction : -1
+};

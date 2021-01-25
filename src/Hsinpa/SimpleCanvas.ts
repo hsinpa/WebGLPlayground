@@ -25,13 +25,13 @@ abstract class SimpleClass {
 
     protected SetCanvasSize() {
         this.SetCanvasToSceenSize(this._canvasDom);
-        this.screenHeight = window.innerHeight;
-        this.screenWidth = window.innerWidth;
+        this.screenHeight = window.innerHeight - 4;
+        this.screenWidth = window.innerWidth ;
     }
 
     public SetCanvasToSceenSize(canvas : HTMLCanvasElement) {
         canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.height = window.innerHeight -4;
     }
 }
 

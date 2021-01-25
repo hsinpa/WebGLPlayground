@@ -57,6 +57,10 @@ body {
 }
 
 .slide_panel {
+
+    background-color: rgb(150, 152, 151);
+    opacity: 0.9;
+    padding:  1rem;
     &[data-visibility="true"] {
         display: inline;
     }
@@ -65,31 +69,29 @@ body {
         display: none;
     }
 
-    &[name="touhou_6"] {
-        position: fixed;
-        max-width: 50rem;
-        left: 0; 
-        right: 0; 
-        margin-left: auto; 
-        margin-right: auto; 
-        top : 40vh;
-        
-        p, h2, h3 {
-            color: black;
-            -webkit-text-fill-color: white; /* Will override color (regardless of order) */
-            -webkit-text-stroke-width: 0.2px;
-            -webkit-text-stroke-color: black;
-        }
-
-        p {
-            font-size: 1.5rem;
-        }
-        animation-duration: 3s;
-        //animation-name: slidein; 
-        animation-fill-mode: forwards;     
+    position: fixed;
+    max-width: 50rem;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    top : 45vh;
+    
+    p, h2, h3 {
+        color: black;
+        -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+        -webkit-text-stroke-width: 0.2px;
+        -webkit-text-stroke-color: black;
     }
 
-    @keyframes slidein {
+    p {
+        font-size: 1.5rem;
+    }
+    animation-duration: 3s;
+    //animation-name: slidein; 
+    animation-fill-mode: forwards;     
+
+    @keyframes down_slideout {
         0% {
             transform: scale(1,1);
             filter: blur(0px);
@@ -101,10 +103,61 @@ body {
         }
 
         100%{
-            transform: translate(0, 1000px);
+            transform: translate(0, 100vh);
             filter: blur(5px) saturate(5);  
         }
     }
+
+    @keyframes down_slidein {
+        0% {
+            transform: translate(0, -100vh);
+        }
+      
+        60% {
+          transform: translate(0, -100vh) scale(0.8,0.8);
+          filter: blur(5px) saturate(5);
+        }
+
+        100%{
+            transform: translate(0, 0vh) scale(1,1);
+            filter: blur(0px) saturate(0px);  
+        }
+    }
+
+
+    @keyframes up_slideout {
+        0% {
+            transform: scale(1,1);
+            filter: blur(0px);
+        }
+      
+        60% {
+          transform: scale(0.8,0.8);
+          filter: blur(1);
+        }
+
+        100%{
+            transform: translate(0, -100vh);
+            filter: blur(5px) saturate(5);  
+        }
+    }
+
+    @keyframes up_slidein {
+        0% {
+            transform: translate(0, 100vh);
+        }
+      
+        60% {
+          transform: translate(0, 100vh) scale(0.8,0.8);
+          filter: blur(5px) saturate(5);
+        }
+
+        100%{
+            transform: translate(0, 0vh) scale(1,1);
+            filter: blur(0px) saturate(0px);  
+        }
+    }
+
 }
 
 .adp6_canvas_2d {
