@@ -5,15 +5,26 @@ uniform sampler2D noiseTex;
 uniform float time;
 uniform float speed;
 uniform float strength;
+uniform float scale;
 
 varying vec2 v_uv;
 
 void main () {
     float t = (time) * speed;
+    vec2 uv = v_uv;
+    // vec2 uv = (v_uv - 0.5) * scale + 0.5;
 
-    vec4 noiseOffset = texture2D(noiseTex, vec2(v_uv.x + t,  v_uv.y + t * 0.1));
+    // if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0 ) {
+    //     gl_FragColor = vec4(0,0,0,0);
+
+    //     return;
+    // }
+
+    //v_uv = (v_uv - 0.5) * scale + 0.5;
+
+    vec4 noiseOffset = texture2D(noiseTex, vec2(uv.x + t,  uv.y + sin(t) * 0.25));
     float normalizeOffset = ( ((noiseOffset.x * 2.0) - 1.0)) * strength;
-    vec4 finalColor = texture2D(texture, vec2(v_uv.x + normalizeOffset * 0.5, v_uv.y + (normalizeOffset)));
+    vec4 finalColor = texture2D(texture, vec2(uv.x + normalizeOffset * 0.5, uv.y + (normalizeOffset)));
 
     float _length = length(finalColor);
     float dynamicPower = _length * sin(t) * strength * 5.0;

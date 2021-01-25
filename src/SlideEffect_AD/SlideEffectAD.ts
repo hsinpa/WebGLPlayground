@@ -1,9 +1,12 @@
 import SimpleCanvas from '../Hsinpa/SimpleCanvas';
 import {GetImagePromise, Lerp} from '../Hsinpa/UtilityMethod';
 import SlideEffectHelper from './SlideEffectHelper';
-import {GLSLDataSet, GLSLPropADP6, SlideEffectStateEnum} from './GLSLType';
+import SlideEffectAnimation from './SlideEffectAnimation';
+
+import {GLSLDataSet, GLSLPropADP6, SlideAnimationType, SlideEffectStateEnum} from './GLSLType';
 const reglPromise = import('regl');
 import REGL, {Regl} from 'regl';
+import {animate} from 'popmotion';
 
 class SlideEffectAD extends SimpleCanvas {
 
@@ -12,26 +15,26 @@ class SlideEffectAD extends SimpleCanvas {
     reglDrawCommand : REGL.DrawCommand;
     reglFrame : REGL.Cancellable;
 
-    private _intervalFunc : NodeJS.Timeout;
-    private _fps = 60;
-
+    slideEffectAnimation : SlideEffectAnimation;
     slideEffectHelper : SlideEffectHelper;
     mainImage : HTMLImageElement;
     dissolveTex : HTMLImageElement;
 
     dynamicREGLTexture : REGL.Texture2D;
+
+    oriWidth = 1024;
+    oriheight = 750;
     width = 1024;
     height = 750;
     time = 0;
 
-    targetPosX = 0;
-    targetPosY = 0;
     canvasPosX = 0;
     canvasPosY = 0;
 
     //WEBGL Parameters
-    webglSpeed = 1;
-    webglStrength = 0.02;
+    webglSpeed = 1.0;
+    webglScale = 1.0;
+    webglStrength = 0.0;
 
     _state : SlideEffectStateEnum = SlideEffectStateEnum.Normal;
 
@@ -39,15 +42,14 @@ class SlideEffectAD extends SimpleCanvas {
     constructor(canvas2DQueryString :string, webglQueryString : string, vertexFilePath : string, fragmentFilePath : string) {
         super(canvas2DQueryString);
 
+        this.slideEffectAnimation = new SlideEffectAnimation();
         this.slideEffectHelper = new SlideEffectHelper();
 
         if (this.IsProgramValid) {
             this.SetupWebglPipeline(webglQueryString, vertexFilePath, fragmentFilePath);
         }
-
         let tempNextBtn = document.querySelector("button[name='next']");
         tempNextBtn.addEventListener('click', this.OnNextImageClick.bind(this));
-        console.log(tempNextBtn);
     }
 
     async SetupWebglPipeline(webglQueryString : string, vertexFilePath : string, fragmentFilePath : string) {
@@ -59,7 +61,7 @@ class SlideEffectAD extends SimpleCanvas {
         this.reglDrawCommand  = await this.PrepareREGLCommand(this.reglCanvas, vertexFilePath, fragmentFilePath);
         this.DrawREGL(this.reglCanvas, this.reglDrawCommand);
 
-        this._intervalFunc = setInterval(this.UpdateProcess.bind(this), this._fps);
+        this.UpdateProcess();
     }
 
     async CreatREGLCanvas(webglDom : HTMLCanvasElement) {
@@ -77,7 +79,12 @@ class SlideEffectAD extends SimpleCanvas {
 
     DrawREGL(regl : Regl, drawCommand : REGL.DrawCommand) {
         let self = this;
+
         this.reglFrame = regl.frame(function (context) {  
+
+            if (self._state != SlideEffectStateEnum.Normal)
+                self.UpdateProcess();
+
             self.time = context.time;   
             regl.clear({
                 color: [0, 0, 0, 1],
@@ -87,6 +94,7 @@ class SlideEffectAD extends SimpleCanvas {
             drawCommand({
                 speed : self.webglSpeed,
                 strength : self.webglStrength,
+                scale : self.webglScale,
                 time : context.time
             });
         });
@@ -95,11 +103,10 @@ class SlideEffectAD extends SimpleCanvas {
     private UpdateProcess() {
         this._context.clearRect(0, 0, this._canvasDom.width, this._canvasDom.height);
 
-        if (this._state != SlideEffectStateEnum.Normal)
-            this.canvasPosY = Lerp(this.canvasPosY, this.targetPosY, 0.1);
+        // if (this._state != SlideEffectStateEnum.Normal)
+        //     this.canvasPosY = Lerp(this.canvasPosY, this.targetPosY, 0.1);
 
         this._context.drawImage(this.mainImage, this.canvasPosX, this.canvasPosY, this.width, this.height);
-
         this.dynamicREGLTexture.subimage(this._context);
     }
 
@@ -112,6 +119,7 @@ class SlideEffectAD extends SimpleCanvas {
 
         this.SetImageToCenter(this.mainImage, this.width, this.height);
     }
+
     //#region  Sliding Effect Group
     //Test Purpose
     OnNextImageClick(event : MouseEvent) {
@@ -119,10 +127,32 @@ class SlideEffectAD extends SimpleCanvas {
 
         if (panelDom.style.animationName ==  "slidein") {
             panelDom.style.animationName = "";
+            this._state = SlideEffectStateEnum.Normal;
         } else {
             panelDom.style.animationName = "slidein";
             this._state = SlideEffectStateEnum.SlideDown;
-            this.targetPosY = this._canvasDom.height;
+
+            this.slideEffectAnimation.CreateSlideAnim(
+                [{y_position : this.canvasPosY, scale : this.webglScale, gl_strength : this.webglStrength},
+                {y_position : this.canvasPosY, scale : 0.8, gl_strength : 0.04},
+                 {y_position : this.canvasPosY + this.screenHeight, scale : 1, gl_strength : 0.0}
+                ],
+                
+                
+                3000,
+                (x : SlideAnimationType) => {
+
+                    this.canvasPosY = x.y_position;
+                    this.width  = this.oriWidth * x.scale;
+                    this.height = this.oriheight * x.scale;
+                    this.canvasPosX = (this.screenWidth * 0.5) - (this.width * 0.5);
+                    this.canvasPosY = (x.y_position * 0.5) - (this.height * 0.5);
+            
+                    this.webglStrength = x.gl_strength;
+
+                }, () => {
+                    this._state = SlideEffectStateEnum.Normal;
+                });
         }
     }
     //#endregion
@@ -130,8 +160,6 @@ class SlideEffectAD extends SimpleCanvas {
     SetImageToCenter(image : HTMLImageElement, width : number, height : number) {
         this.canvasPosX = (this.screenWidth * 0.5) - (width * 0.5);
         this.canvasPosY = (this.screenHeight * 0.5) - (height * 0.5);
-        this.targetPosX = this.canvasPosX;
-        this.targetPosY = this.canvasPosY;
     }
 
     SetCanvasSize() {
@@ -143,6 +171,7 @@ class SlideEffectAD extends SimpleCanvas {
         if(this.mainImage != null) {
             this.SetImageToCenter(this.mainImage, this.width, this.height);
             this.dynamicREGLTexture.resize(this._canvasDom.width, this._canvasDom.height);
+            this.UpdateProcess();
         }
     }
 }

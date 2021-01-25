@@ -11,7 +11,8 @@ class BubbleEffect2D {
 
     private _canvasDom : HTMLCanvasElement;
     private _context : CanvasRenderingContext2D;
-    private _intervalFunc : NodeJS.Timeout;
+    
+    private _intervalFunc : number;
 
     public speed : number;
     public bubbleNum : number;

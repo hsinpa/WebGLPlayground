@@ -11,7 +11,7 @@ class DeepParallel {
     _targetOffsetX : number;
     _targetOffsetY : number;
 
-    _intervalFunc : NodeJS.Timeout;
+    _intervalFunc : number;
 
     constructor(body : HTMLElement) {
         this._domBody = body;

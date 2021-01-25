@@ -29,6 +29,9 @@ class SlideEffectHelper {
 
             vert: vertex,
 
+            blend : {
+                enable : true
+            },
             attributes: {
                 a_position: [
                     [-1, -1],
@@ -50,7 +53,8 @@ class SlideEffectHelper {
                 noiseTex : regl.texture({data:noiseTex, wrap  : "repeat"}),
                 time: regl.prop<GLSLPropADP6, "time">("time"),
                 speed: regl.prop<GLSLPropADP6, "speed">('speed'),
-                strength: regl.prop<GLSLPropADP6, "strength">('strength')
+                strength: regl.prop<GLSLPropADP6, "strength">('strength'),
+                scale: regl.prop<GLSLPropADP6, "scale">('scale')
             },
 
             count: 6

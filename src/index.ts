@@ -7,15 +7,15 @@ import {ParallelDataType} from './DeepParallel/ParallelDataType';
 
 window.onload = () => {
     // ===================== Parallel Effect SetUp Script =====================
-    let parallelModule = new DeepParallel( document.querySelector("body") );
+    //let parallelModule = new DeepParallel( document.querySelector("body") );
     
-    fetch('./Dataset/parallel_setting.json')
-    .then(function(response) {
-        return response.json();
-    })
-    .then(function(myJson) {
-        parallelModule.SetConfig( myJson );
-    });
+    // fetch('./Dataset/parallel_setting.json')
+    // .then(function(response) {
+    //     return response.json();
+    // })
+    // .then(function(myJson) {
+    //     parallelModule.SetConfig( myJson );
+    // });
     // ===================== END =====================
 
     // ===================== Bubble2D Effect SetUp Script =====================
@@ -45,10 +45,11 @@ window.onload = () => {
     // ===================== Slide Effect ADP6 SetUp Script =====================
     let vertFilePath = "./glsl/simple_texture.vert", fragFilePath = "./glsl/slide_effect_ad6.frag";
     let slideEffectAD = new SlideEffectAD(".adp6_canvas_2d", ".adp6_canvas_webgl", vertFilePath, fragFilePath);
-    if (slideEffectAD.IsProgramValid) {
+    if (slideEffectAD.IsProgramValid ) {
         let sliderStrength : any = document.querySelector("input[name='strength']");
         let sliderSpeed : any = document.querySelector("input[name='speed']");
-        
+        let sliderScale : any = document.querySelector("input[name='scale']");
+
         sliderStrength.addEventListener("input", (e : any) => {
 
             let sliderLabel: any = document.querySelector("label[name='strength']");
@@ -57,12 +58,11 @@ window.onload = () => {
             slideEffectAD.webglStrength = parseFloat(e.target.value);
         });
     
-        sliderSpeed.addEventListener("input", (e : any) => {
+        sliderScale.addEventListener("input", (e : any) => {
+            let sliderLabel: any = document.querySelector("label[name='scale']");
+            sliderLabel.innerHTML = "Scale " + e.target.value;
 
-            let sliderLabel: any = document.querySelector("label[name='speed']");
-            sliderLabel.innerHTML = "Speed " + e.target.value;
-
-            slideEffectAD.webglSpeed = parseFloat(e.target.value);
+            slideEffectAD.webglScale = parseFloat(e.target.value);
         });
     }
 
