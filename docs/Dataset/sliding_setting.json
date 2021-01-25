@@ -4,19 +4,19 @@
     "components" : [
         {
             "query" : ".slide_panel[name='touhou_6']",
-            "mainTex" : "./image/ADP9_Clone/TH06Main.jpg"
+            "mainTex" : "./image/ADP9_Clone/Th06Main.jpg"
         },
         {
             "query" : ".slide_panel[name='touhou_7']",
-            "mainTex" : "./image/ADP9_Clone/TH07Main.jpg"
+            "mainTex" : "./image/ADP9_Clone/Th07Main.jpg"
         },
         {
             "query" : ".slide_panel[name='touhou_8']",
-            "mainTex" : "./image/ADP9_Clone/TH08Main.jpg"
+            "mainTex" : "./image/ADP9_Clone/Th08Main.jpg"
         },
         {
             "query" : ".slide_panel[name='touhou_9']",
-            "mainTex" : "./image/ADP9_Clone/TH09Main.jpg"
+            "mainTex" : "./image/ADP9_Clone/Th09Main.jpg"
         }
     ]
 }
