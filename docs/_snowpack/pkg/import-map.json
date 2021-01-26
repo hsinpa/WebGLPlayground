@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "popmotion": "./popmotion.js",
+    "regl": "./regl.js",
+    "typescript-collections": "./typescript-collections.js"
+  }
+}

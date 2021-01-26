@@ -29,7 +29,6 @@ class SlideEffectAD extends SimpleCanvas {
 
     width = 1024;
     height = 750;
-    time = 0;
 
     canvasPosX = 0.5;
     canvasPosY = 0.5;
@@ -38,6 +37,7 @@ class SlideEffectAD extends SimpleCanvas {
     webglSpeed = 1.0;
     webglScale = 1.0;
     webglStrength = 0.0;
+    time = 0;
 
     _state : SlideEffectStateEnum = SlideEffectStateEnum.Normal;
 
@@ -50,15 +50,7 @@ class SlideEffectAD extends SimpleCanvas {
         this.slideEffectHelper = new SlideEffectHelper();
         this.IsProgramValid = (this.IsProgramValid && this._config != null &&  this._config.components.length > 0);
         if (this.IsProgramValid) {
-            this.SetupWebglPipeline(webglQueryString, vertexFilePath, fragmentFilePath);
-        
-        
-            let tempNextBtn = document.querySelector("button[name='next']");
-            tempNextBtn.addEventListener('click', this.OnNextImageClick.bind(this));
-    
-            let tempPreviousBtn = document.querySelector("button[name='previous']");
-            tempPreviousBtn.addEventListener('click', this.OnPreviousImageClick.bind(this));
-    
+            this.SetupWebglPipeline(webglQueryString, vertexFilePath, fragmentFilePath);    
             window.addEventListener('wheel', this.OnWheelImageClick.bind(this));   
         }
     }
@@ -70,8 +62,10 @@ class SlideEffectAD extends SimpleCanvas {
         this.reglCanvas  = await this.CreatREGLCanvas(this.webglDom);
         this.dynamicREGLTexture = this.reglCanvas.texture({data:this._canvasDom, flipY: true});
         this.reglDrawCommand  = await this.PrepareREGLCommand(this.reglCanvas, vertexFilePath, fragmentFilePath);
+
         this.DrawREGL(this.reglCanvas, this.reglDrawCommand);
- 
+
+        //Prepare first frame render
         this.UpdateProcess();
     }
 
@@ -87,11 +81,12 @@ class SlideEffectAD extends SimpleCanvas {
         return this.slideEffectHelper.CreateREGLCommandObj(regl, glslSetting.vertex_shader, glslSetting.fragment_shader, this.dynamicREGLTexture, this.dissolveTex);
     }
 
-
     DrawREGL(regl : Regl, drawCommand : REGL.DrawCommand) {
         let self = this;
 
         this.reglFrame = regl.frame(function (context) {  
+            //Frame Loop
+            
             if (self._state != SlideEffectStateEnum.Normal)
                 self.UpdateProcess();
 
@@ -99,7 +94,7 @@ class SlideEffectAD extends SimpleCanvas {
             regl.clear({
                 color: [0, 0, 0, 1],
                 depth: 1
-            });    
+            });
             
             drawCommand({
                 speed : self.webglSpeed,
@@ -113,20 +108,18 @@ class SlideEffectAD extends SimpleCanvas {
     private UpdateProcess() {
         this._context.clearRect(0, 0, this._canvasDom.width, this._canvasDom.height);
 
-        // if (this._state != SlideEffectStateEnum.Normal)
-        //     this.canvasPosY = Lerp(this.canvasPosY, this.targetPosY, 0.1);
-
-
-        let mainTexWidth = this.width * this.webglScale;
-        let mainTexHeight = this.height * this.webglScale;
-        let canvasPosX = (this.screenWidth * this.canvasPosX) - (mainTexWidth * this.canvasPosX);
-        let canvasPosY = (this.screenHeight * this.canvasPosY) - (mainTexHeight * 0.5);
-
+        let mainTexWidth = this.width * this.webglScale, xCenterOffSet = mainTexWidth * 0.5;
+        let mainTexHeight = this.height * this.webglScale, yCenterOffset = mainTexHeight * 0.5;
+        let canvasPosX = (this.screenWidth * this.canvasPosX) - (xCenterOffSet);
+        let canvasPosY = (this.screenHeight * this.canvasPosY) - (yCenterOffset);
+        
+        //Main Tex
         this._context.drawImage(this.mainImage, canvasPosX, canvasPosY, mainTexWidth, mainTexHeight);       
 
+        //Next Tex if exist
         if (this._state != SlideEffectStateEnum.Normal) {
             let dir = (this._state == SlideEffectStateEnum.SlideDown) ? -1 : 1;
-            let nextYPos = (this.screenHeight * (this.canvasPosY + dir)) - (mainTexHeight * 0.5);
+            let nextYPos = (this.screenHeight * (this.canvasPosY + dir)) - (yCenterOffset);
             this._context.drawImage(this.nextImage, canvasPosX, nextYPos, mainTexWidth, mainTexHeight);
         }
 
@@ -161,7 +154,6 @@ class SlideEffectAD extends SimpleCanvas {
             this.OnPreviousImageClick(null);
     }
 
-
     OnPreviousImageClick(event : MouseEvent) {
         if (this._index <= 0) return;
 
@@ -190,37 +182,26 @@ class SlideEffectAD extends SimpleCanvas {
 
         this.slideEffectAnimation.CreateSlideAnim(
             [{y_position : this.canvasPosY, scale : this.webglScale, gl_strength : this.webglStrength},
-            {y_position : this.canvasPosY, scale : 0.9, gl_strength : 0.03},
-                {y_position : slideParameter.targetPosY, scale : 1, gl_strength : 0.0}
+             {y_position : this.canvasPosY, scale : 0.9, gl_strength : 0.03},
+             {y_position : slideParameter.targetPosY, scale : 1, gl_strength : 0.0}
             ],
             
             3000,
             (x : SlideAnimationType) => {
-
                 this.canvasPosY = x.y_position;
                 this.webglScale  =  x.scale;
-
-                this.canvasPosY = (x.y_position);
-        
+                this.canvasPosY = x.y_position;
                 this.webglStrength = x.gl_strength;
-
             }, () => {
+                //OnComplete
                 this._index = this._index + slideParameter.direction;
                 this._state = SlideEffectStateEnum.Normal;
                 this.canvasPosY = 0.5;
                 panelDom.setAttribute("data-visibility", "false");
-                panelDom.style.animationName = "";
-                nextPanelDom.style.animationName = "";
                 this.LoadImages();
-            });
-
+        });
     }
     //#endregion
-
-    SetImageToCenter(image : HTMLImageElement, width : number, height : number) {
-        this.canvasPosX = (this.screenWidth * 0.5) - (width * 0.5);
-        this.canvasPosY = (this.screenHeight * 0.5) - (height * 0.5);
-    }
 
     SetCanvasSize() {
         super.SetCanvasSize();

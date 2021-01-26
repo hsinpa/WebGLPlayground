@@ -44,7 +44,7 @@ window.onload = () => {
     // ===================== END =====================
 
     // ===================== Slide Effect ADP6 SetUp Script =====================
-    let vertFilePath = "./glsl/simple_texture.vert", fragFilePath = "./glsl/slide_effect_ad6.frag";
+    let vertFilePath = "./glsl/simple_texture.vert", fragFilePath = "./glsl/slide_effect.frag";
 
     fetch('./Dataset/sliding_setting.json')
     .then(function(response) {

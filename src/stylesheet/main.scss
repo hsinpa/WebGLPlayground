@@ -87,7 +87,7 @@ body {
     p {
         font-size: 1.5rem;
     }
-    animation-duration: 3.5s;
+    animation-duration: 3s;
     //animation-name: slidein; 
     animation-fill-mode: forwards;     
 
@@ -97,7 +97,7 @@ body {
             filter: blur(0px);
         }
       
-        50% {
+        53% {
           transform: scale(0.8,0.8);
           filter: blur(1);
         }
@@ -115,12 +115,10 @@ body {
       
         60% {
           transform: translate(0, -100vh) scale(0.8,0.8);
-          filter: blur(5px) saturate(5);
         }
 
         100%{
             transform: translate(0, 0vh) scale(1,1);
-            filter: blur(0px) saturate(0px);  
         }
     }
 
@@ -131,7 +129,7 @@ body {
             filter: blur(0px);
         }
       
-        50% {
+        53% {
           transform: scale(0.8,0.8);
           filter: blur(1);
         }
@@ -149,12 +147,10 @@ body {
       
         60% {
           transform: translate(0, 100vh) scale(0.8,0.8);
-          filter: blur(5px) saturate(5);
         }
 
         100%{
             transform: translate(0, 0vh) scale(1,1);
-            filter: blur(0px) saturate(0px);  
         }
     }
 
