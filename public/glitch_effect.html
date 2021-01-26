@@ -1,0 +1,50 @@
+<!doctype html>
+<head>
+    <title>AD:Piano VI Effect Clone site</title>
+</head>
+<body>
+    <canvas class="glitch_canvas_2d"></canvas>
+    <canvas class="glitch_canvas_webgl"></canvas>
+
+    <div class="control_bar">
+        <h3>Control Panel</h3>
+        <label name="strength">Strength</label><br>
+        <input type="range" min="0" max="1" step="0.01" value="0.02" class="slider" name="strength">
+        <br>
+
+        <label name="speed">Speed</label><br>
+        <input type="range" min="0" max="2" step="0.01" value="1" class="slider" name="speed">
+        <br>
+    </div>
+
+    <div class="glitch_panel" data-visibility="true" name="touhou_6">
+        <h2>TOUHOU 6</h2>
+        <p>A thick scarlet mist is covering Gensokyo; it blocks out the sun, 
+            which causes affected areas to become cold. Our heroines believe the culprit lives 
+            in the newly-materialized Scarlet Devil Mansion, 
+            and so they depart with the goal of "questioning" those who live there.
+        </p>
+    </div>
+
+    <div class="glitch_panel" data-visibility="false" name="touhou_7">
+        <h2>TOUHOU 7</h2>
+        <p>
+            Somebody's somehow collecting springtime energy from Gensokyo (unbeknownst to our heroines, 
+            the purpose is to revive a giant sakura tree). This is making things unseasonably cold in Gensokyo - 
+            it feels like winter! However, when the girls go to investigate, 
+            they discover that the hidden objective behind this tree's revival may 
+            threaten Gensokyo even more than the chill already in effect...
+        </p>
+    </div>
+    
+    <div class="glitch_panel" data-visibility="false" name="touhou_8">
+        <h2>TOUHOU 8</h2>
+        <p>
+            東方永夜抄 Imperishable Night (romanized: Touhou Eiyashou, meaning Eternal Night Vignette from the East) is the eighth official game of the Touhou series. 
+            It is the third to be released specifically for the Windows OS.
+        </p>
+    </div>
+
+    <script type="module" src="./dist/index.js"></script>
+</body>
+</html>

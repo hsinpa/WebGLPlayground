@@ -58,3 +58,7 @@ export function GetImagePromise(imagePath : string) {
         return im;
     });
 }
+
+export function GetRelativeURL(url : string) {
+    return (url.replace(/^(?:\/\/|[^/]+)*\//, ''));
+}
