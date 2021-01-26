@@ -33,6 +33,8 @@ class SlideEffectAD extends SimpleCanvas {
     canvasPosX = 0.5;
     canvasPosY = 0.5;
 
+    touchPosY = 0;
+
     //WEBGL Parameters
     webglSpeed = 1.0;
     webglScale = 1.0;
@@ -52,6 +54,8 @@ class SlideEffectAD extends SimpleCanvas {
         if (this.IsProgramValid) {
             this.SetupWebglPipeline(webglQueryString, vertexFilePath, fragmentFilePath);    
             window.addEventListener('wheel', this.OnWheelImageClick.bind(this));   
+            window.addEventListener('touchstart', this.OnTouchStartEvent.bind(this));   
+            window.addEventListener('touchmove', this.OnTouchEvent.bind(this));   
         }
     }
 
@@ -146,6 +150,19 @@ class SlideEffectAD extends SimpleCanvas {
     }
 
     //#region  Sliding Effect Group
+    OnTouchStartEvent( event : TouchEvent) {
+        this.touchPosY = event.touches[0].clientY;
+    }
+
+    OnTouchEvent( event : TouchEvent) {
+        var te = event.changedTouches[0].clientY;
+        if (this.touchPosY > te) {
+            this.OnNextImageClick(null);
+        } else {
+            this.OnPreviousImageClick(null);
+        }
+    }
+
     OnWheelImageClick(event : WheelEvent) {
         if (event.deltaY > 0)
             this.OnNextImageClick(null);

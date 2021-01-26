@@ -83,7 +83,7 @@
       ]
     },
     "dist/SlideEffect_AD/SlideEffectAD.js": {
-      "bytes": 6369,
+      "bytes": 6825,
       "imports": [
         {
           "path": "dist/Hsinpa/SimpleCanvas.js",
@@ -175,13 +175,13 @@
           "bytesInOutput": 317
         },
         "dist/SlideEffect_AD/SlideEffectAD.js": {
-          "bytesInOutput": 3923
+          "bytesInOutput": 4262
         },
         "dist/index.js": {
           "bytesInOutput": 1557
         }
       },
-      "bytes": 179479
+      "bytes": 179818
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],
