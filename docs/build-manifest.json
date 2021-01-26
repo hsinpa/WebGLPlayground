@@ -1,0 +1,205 @@
+{
+  "inputs": {
+    "dist/stylesheet/main.css": {
+      "bytes": 1798,
+      "imports": []
+    },
+    "dist/Hsinpa/UtilityMethod.js": {
+      "bytes": 1111,
+      "imports": []
+    },
+    "dist/DeepParallel/DeepParallel.js": {
+      "bytes": 2027,
+      "imports": [
+        {
+          "path": "dist/Hsinpa/UtilityMethod.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/BubbleEffect2D/BubbleEffect2D.js": {
+      "bytes": 4747,
+      "imports": [
+        {
+          "path": "dist/Hsinpa/UtilityMethod.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/Hsinpa/SimpleCanvas.js": {
+      "bytes": 768,
+      "imports": []
+    },
+    "_snowpack/pkg/common/_commonjsHelpers-eb5a497e.js": {
+      "bytes": 666,
+      "imports": []
+    },
+    "_snowpack/pkg/typescript-collections.js": {
+      "bytes": 113010,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/common/_commonjsHelpers-eb5a497e.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/SlideEffect_AD/SlideEffectHelper.js": {
+      "bytes": 1679,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/typescript-collections.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/Hsinpa/UtilityMethod.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "_snowpack/pkg/popmotion.js": {
+      "bytes": 34245,
+      "imports": []
+    },
+    "dist/SlideEffect_AD/SlideEffectAnimation.js": {
+      "bytes": 456,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/popmotion.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/SlideEffect_AD/GLSLType.js": {
+      "bytes": 646,
+      "imports": []
+    },
+    "_snowpack/pkg/regl.js": {
+      "bytes": 304203,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/common/_commonjsHelpers-eb5a497e.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/SlideEffect_AD/SlideEffectAD.js": {
+      "bytes": 6369,
+      "imports": [
+        {
+          "path": "dist/Hsinpa/SimpleCanvas.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/SlideEffect_AD/SlideEffectHelper.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/SlideEffect_AD/SlideEffectAnimation.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/SlideEffect_AD/GLSLType.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "_snowpack/pkg/regl.js",
+          "kind": "dynamic-import"
+        }
+      ]
+    },
+    "dist/index.js": {
+      "bytes": 2739,
+      "imports": [
+        {
+          "path": "dist/stylesheet/main.css",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/DeepParallel/DeepParallel.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/BubbleEffect2D/BubbleEffect2D.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/SlideEffect_AD/SlideEffectAD.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "regl_sample.html.inline.0.css": {
+      "bytes": 428,
+      "imports": []
+    }
+  },
+  "outputs": {
+    "../~~bundle~~/dist/index.js": {
+      "imports": [],
+      "exports": [],
+      "inputs": {
+        "_snowpack/pkg/regl.js": {
+          "bytesInOutput": 123697
+        },
+        "dist/stylesheet/main.css": {
+          "bytesInOutput": 0
+        },
+        "dist/Hsinpa/UtilityMethod.js": {
+          "bytesInOutput": 468
+        },
+        "dist/DeepParallel/DeepParallel.js": {
+          "bytesInOutput": 1297
+        },
+        "dist/BubbleEffect2D/BubbleEffect2D.js": {
+          "bytesInOutput": 2851
+        },
+        "dist/Hsinpa/SimpleCanvas.js": {
+          "bytesInOutput": 551
+        },
+        "_snowpack/pkg/common/_commonjsHelpers-eb5a497e.js": {
+          "bytesInOutput": 381
+        },
+        "_snowpack/pkg/typescript-collections.js": {
+          "bytesInOutput": 28598
+        },
+        "dist/SlideEffect_AD/SlideEffectHelper.js": {
+          "bytesInOutput": 792
+        },
+        "_snowpack/pkg/popmotion.js": {
+          "bytesInOutput": 13489
+        },
+        "dist/SlideEffect_AD/SlideEffectAnimation.js": {
+          "bytesInOutput": 132
+        },
+        "dist/SlideEffect_AD/GLSLType.js": {
+          "bytesInOutput": 317
+        },
+        "dist/SlideEffect_AD/SlideEffectAD.js": {
+          "bytesInOutput": 3923
+        },
+        "dist/index.js": {
+          "bytesInOutput": 1557
+        }
+      },
+      "bytes": 179479
+    },
+    "../~~bundle~~/dist/index.css": {
+      "imports": [],
+      "inputs": {
+        "dist/stylesheet/main.css": {
+          "bytesInOutput": 1766
+        }
+      },
+      "bytes": 1767
+    },
+    "../~~bundle~~/regl_sample.html.inline.0.css": {
+      "imports": [],
+      "inputs": {
+        "regl_sample.html.inline.0.css": {
+          "bytesInOutput": 239
+        }
+      },
+      "bytes": 240
+    }
+  }
+}
