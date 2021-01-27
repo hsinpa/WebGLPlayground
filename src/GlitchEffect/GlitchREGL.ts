@@ -12,6 +12,7 @@ export interface GlitchGLConfig {
     components : GlitchComponent[];
     canvas_domQuery : string;
     webgl_domQuery : string;
+    noiseTex : string;
 }
 
 export interface GlitchComponent {

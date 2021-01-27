@@ -1,8 +1,17 @@
 import REGL, {Regl} from 'regl';
 import {GLSLDataSet} from './WebglType';
 import {Dictionary} from 'typescript-collections';
+import {GetImagePromise} from '../UtilityMethod';
 
 class WebglUtility {
+
+    textureCache : Dictionary<string, HTMLImageElement>;
+
+    constructor() {
+        this.textureCache = new Dictionary();
+    }
+
+
     async PrepareREGLShader(vertFilePath: string, fragFilePath: string) {
         let VertPros = fetch(vertFilePath, {method: 'GET', credentials: 'include'});
         let FragPros = fetch(fragFilePath, {method: 'GET', credentials: 'include'});
@@ -20,6 +29,18 @@ class WebglUtility {
 
             return gLSLDataSet; 
         });
+    }
+
+    async GetImage(path : string) : Promise<HTMLImageElement> {
+
+        if (this.textureCache.containsKey(path)) {
+            return this.textureCache.getValue(path);
+        }
+
+        let texture = await GetImagePromise(path);
+        this.textureCache.setValue(path, texture);
+
+        return texture;         
     }
 }
 

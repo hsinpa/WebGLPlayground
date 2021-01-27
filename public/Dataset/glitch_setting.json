@@ -1,7 +1,8 @@
 {
     "strength" : 0.03,
-    "canvas_domQuery" : "",
-    "webgl_domQuery" : "",
+    "canvas_domQuery" : ".glitch_canvas_2d",
+    "webgl_domQuery" : ".glitch_canvas_webgl",
+    "noiseTex" : "../image/noise_tex_02.jpg",
     "components" : [
         {
             "query" : ".glitch_panel[name='touhou_6']",

@@ -93,7 +93,7 @@ export function GlitchEffectSetUp() {
         return response.json();
     })
     .then(function(myJson) {
-        let glitchEffect = new GlitchEffect();
+        let glitchEffect = new GlitchEffect(myJson, vertFilePath, fragFilePath);
     });
 
 }
