@@ -5,6 +5,7 @@ export interface GlitchGLType {
     speed : number;
     strength : number;
     scale : number;
+    displacement : number;
 }
 
 export interface GlitchGLConfig {
@@ -26,9 +27,9 @@ export function CreateREGLCommandObj(regl : Regl, vertex : string, fragment : st
 
         vert: vertex,
 
-        blend : {
-            enable : true
-        },
+        // blend : {
+        //     enable : true
+        // },
         attributes: {
             a_position: [
                 [-1, -1],
@@ -47,7 +48,8 @@ export function CreateREGLCommandObj(regl : Regl, vertex : string, fragment : st
             time: regl.prop<GlitchGLType, "time">("time"),
             speed: regl.prop<GlitchGLType, "speed">('speed'),
             strength: regl.prop<GlitchGLType, "strength">('strength'),
-            scale: regl.prop<GlitchGLType, "scale">('scale')
+            scale: regl.prop<GlitchGLType, "scale">('scale'),
+            displacement : regl.prop<GlitchGLType, "displacement">('displacement')
         },
 
         count: 6

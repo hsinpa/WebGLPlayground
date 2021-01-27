@@ -94,6 +94,29 @@ export function GlitchEffectSetUp() {
     })
     .then(function(myJson) {
         let glitchEffect = new GlitchEffect(myJson, vertFilePath, fragFilePath);
+
+        SetDomInputValue("strength", (x) => {
+            glitchEffect.webglStrength = (x);
+        });
+
+        SetDomInputValue("displacement", (x) => {
+            glitchEffect.webglDisplacement = (x);
+        });
+
+        SetDomInputValue("speed", (x) => {
+            glitchEffect.webglSpeed = (x);
+        });
     });
 
+}
+
+export function SetDomInputValue(inputName : string, callback : (x : number) => void ) {
+    let inputDom : any = document.querySelector(`input[name='${inputName}']`);
+    inputDom.addEventListener("input", (e : any) => {    
+        let sliderLabel: any = document.querySelector(`label[name='${inputName}']`);
+        sliderLabel.innerHTML = inputName.toUpperCase() + " " + e.target.value;
+
+        callback(parseFloat(e.target.value));
+    });
+    callback(parseFloat(inputDom.value));
 }
