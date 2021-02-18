@@ -184,7 +184,7 @@
       ]
     },
     "dist/index.js": {
-      "bytes": 600,
+      "bytes": 677,
       "imports": [
         {
           "path": "dist/stylesheet/main.css",
@@ -272,10 +272,10 @@
           "bytesInOutput": 2168
         },
         "dist/index.js": {
-          "bytesInOutput": 165
+          "bytesInOutput": 186
         }
       },
-      "bytes": 184740
+      "bytes": 184761
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],

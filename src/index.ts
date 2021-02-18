@@ -10,9 +10,10 @@ let _DeepParallel = DeepParallel;
 
 window.onload = () => {
 
-    let router = GetRelativeURL(window.location.href);
+    let hrefString = GetRelativeURL(window.location.href);
+    let n = hrefString.lastIndexOf("/");
+    let router = (n < 0) ? hrefString : hrefString.slice(n);
 
-    console.log(router);
     switch(router) {
         case "" :
             ParallelBubbleSetUp();
