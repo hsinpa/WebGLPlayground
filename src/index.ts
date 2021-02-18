@@ -11,6 +11,8 @@ let _DeepParallel = DeepParallel;
 window.onload = () => {
 
     let router = GetRelativeURL(window.location.href);
+
+    console.log(router);
     switch(router) {
         case "" :
             ParallelBubbleSetUp();
