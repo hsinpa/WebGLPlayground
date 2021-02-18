@@ -14,6 +14,8 @@ window.onload = () => {
     let n = hrefString.lastIndexOf("/");
     let router = (n < 0) ? hrefString : hrefString.slice(n);
 
+    console.log(router);
+
     switch(router) {
         case "" :
             ParallelBubbleSetUp();
