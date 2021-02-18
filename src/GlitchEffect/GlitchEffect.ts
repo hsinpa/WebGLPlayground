@@ -10,6 +10,7 @@ class GlitchEffect extends WebGLCanvas {
     //#region Parameters
     reglCanvas : Regl;
     dynamicREGLTexture : REGL.Texture2D;
+    nextREGLTexture : REGL.Texture2D;
     webglUtility : WebglUtility;
     glitchInfo : GlitchInfo;
     reglDrawCommand : REGL.DrawCommand;
@@ -28,6 +29,7 @@ class GlitchEffect extends WebGLCanvas {
     webglScale = 1.0;
     webglStrength = 0.0;
     webglDisplacement = 0.0;
+    webglTransition = 1.0;
     private time = 0;
     //#endregion
 
@@ -51,13 +53,15 @@ class GlitchEffect extends WebGLCanvas {
     async SetupWebglPipeline(vertexFilePath : string, fragmentFilePath : string) {
         this.reglCanvas  = await this.CreatREGLCanvas (this._webglDom);
         this.dynamicREGLTexture = this.reglCanvas.texture({data:this._canvasDom, flipY: true});
+        
         let glslSetting = await this.webglUtility.PrepareREGLShader(vertexFilePath, fragmentFilePath);
 
         //Noise
         let noiseTexPath = this.glitchInfo.config.noiseTex;
         let noiseTex = await GetImagePromise(noiseTexPath);
+        let distortTex = await GetImagePromise(this.glitchInfo.config.distortTex);
 
-        this.reglDrawCommand  = await CreateREGLCommandObj(this.reglCanvas, glslSetting.vertex_shader, glslSetting.fragment_shader, this.dynamicREGLTexture, noiseTex);
+        this.reglDrawCommand  = await CreateREGLCommandObj(this.reglCanvas, glslSetting.vertex_shader, glslSetting.fragment_shader, this.dynamicREGLTexture, noiseTex, distortTex);
     }
 
     DrawCanvas2D() {
@@ -67,6 +71,9 @@ class GlitchEffect extends WebGLCanvas {
         let mainTexHeight = this.height * this.webglScale, yCenterOffset = mainTexHeight * 0.5;
         let canvasPosX = (this.screenWidth * this.imagePosX) - (xCenterOffSet);
         let canvasPosY = (this.screenHeight * this.imagePosY) - (yCenterOffset);
+
+        this._context.fillStyle = "#4cb382";
+        this._context.fillRect(0, 0, this._canvasDom.width, this._canvasDom.height);        
 
         this._context.drawImage(this.glitchInfo.mainTex, canvasPosX, canvasPosY, mainTexWidth, mainTexHeight);       
         this.dynamicREGLTexture.subimage(this._context);
@@ -88,7 +95,8 @@ class GlitchEffect extends WebGLCanvas {
                 strength : self.webglStrength,
                 scale : self.webglScale,
                 displacement : self.webglDisplacement,
-                time : context.time
+                time : context.time,
+                transition : Math.sin(context.time) + 1.5  //self.webglTransition //Math.sin(context.time) * 2
             });
         });
     }

@@ -1,11 +1,11 @@
 {
   "inputs": {
     "dist/stylesheet/main.css": {
-      "bytes": 1798,
+      "bytes": 1969,
       "imports": []
     },
     "dist/Hsinpa/UtilityMethod.js": {
-      "bytes": 1111,
+      "bytes": 1199,
       "imports": []
     },
     "dist/DeepParallel/DeepParallel.js": {
@@ -57,7 +57,7 @@
       ]
     },
     "_snowpack/pkg/popmotion.js": {
-      "bytes": 34245,
+      "bytes": 34295,
       "imports": []
     },
     "dist/SlideEffect_AD/SlideEffectAnimation.js": {
@@ -107,13 +107,64 @@
         }
       ]
     },
-    "dist/index.js": {
-      "bytes": 2739,
+    "dist/Hsinpa/WebGL/WebglCanvas.js": {
+      "bytes": 1085,
       "imports": [
         {
-          "path": "dist/stylesheet/main.css",
+          "path": "_snowpack/pkg/regl.js",
+          "kind": "dynamic-import"
+        }
+      ]
+    },
+    "dist/Hsinpa/WebGL/WebglUtility.js": {
+      "bytes": 990,
+      "imports": [
+        {
+          "path": "_snowpack/pkg/typescript-collections.js",
           "kind": "import-statement"
         },
+        {
+          "path": "dist/Hsinpa/UtilityMethod.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/GlitchEffect/GlitchREGL.js": {
+      "bytes": 1018,
+      "imports": []
+    },
+    "dist/GlitchEffect/GlitchInfo.js": {
+      "bytes": 645,
+      "imports": []
+    },
+    "dist/GlitchEffect/GlitchEffect.js": {
+      "bytes": 3251,
+      "imports": [
+        {
+          "path": "dist/Hsinpa/WebGL/WebglCanvas.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/Hsinpa/WebGL/WebglUtility.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/GlitchEffect/GlitchREGL.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/GlitchEffect/GlitchInfo.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/Hsinpa/UtilityMethod.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/Sample/index.js": {
+      "bytes": 3941,
+      "imports": [
         {
           "path": "dist/DeepParallel/DeepParallel.js",
           "kind": "import-statement"
@@ -124,6 +175,31 @@
         },
         {
           "path": "dist/SlideEffect_AD/SlideEffectAD.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/GlitchEffect/GlitchEffect.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "dist/index.js": {
+      "bytes": 577,
+      "imports": [
+        {
+          "path": "dist/stylesheet/main.css",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/DeepParallel/DeepParallel.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/Sample/index.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/Hsinpa/UtilityMethod.js",
           "kind": "import-statement"
         }
       ]
@@ -145,7 +221,7 @@
           "bytesInOutput": 0
         },
         "dist/Hsinpa/UtilityMethod.js": {
-          "bytesInOutput": 468
+          "bytesInOutput": 525
         },
         "dist/DeepParallel/DeepParallel.js": {
           "bytesInOutput": 1297
@@ -166,7 +242,7 @@
           "bytesInOutput": 792
         },
         "_snowpack/pkg/popmotion.js": {
-          "bytesInOutput": 13489
+          "bytesInOutput": 13486
         },
         "dist/SlideEffect_AD/SlideEffectAnimation.js": {
           "bytesInOutput": 132
@@ -177,20 +253,38 @@
         "dist/SlideEffect_AD/SlideEffectAD.js": {
           "bytesInOutput": 4262
         },
+        "dist/Hsinpa/WebGL/WebglCanvas.js": {
+          "bytesInOutput": 751
+        },
+        "dist/Hsinpa/WebGL/WebglUtility.js": {
+          "bytesInOutput": 466
+        },
+        "dist/GlitchEffect/GlitchREGL.js": {
+          "bytesInOutput": 545
+        },
+        "dist/GlitchEffect/GlitchInfo.js": {
+          "bytesInOutput": 479
+        },
+        "dist/GlitchEffect/GlitchEffect.js": {
+          "bytesInOutput": 1851
+        },
+        "dist/Sample/index.js": {
+          "bytesInOutput": 2168
+        },
         "dist/index.js": {
-          "bytesInOutput": 1557
+          "bytesInOutput": 142
         }
       },
-      "bytes": 179818
+      "bytes": 184717
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],
       "inputs": {
         "dist/stylesheet/main.css": {
-          "bytesInOutput": 1766
+          "bytesInOutput": 1937
         }
       },
-      "bytes": 1767
+      "bytes": 1938
     },
     "../~~bundle~~/regl_sample.html.inline.0.css": {
       "imports": [],

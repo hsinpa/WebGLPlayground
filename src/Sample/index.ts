@@ -106,6 +106,10 @@ export function GlitchEffectSetUp() {
         SetDomInputValue("speed", (x) => {
             glitchEffect.webglSpeed = (x);
         });
+
+        SetDomInputValue("transition", (x) => {
+            glitchEffect.webglTransition = (x);
+        });
     });
 
 }

@@ -17,9 +17,6 @@
     float transitionBool = (transition >= transtionCol.r) ? 0.0 : 1.0;
 
     gl_FragColor = texture2D(texture, vec2(v_uv.x,  v_uv.y + noiseOffset.x)) * transitionBool;
-
-
-
   }
 
   // uniform vec4 color;
