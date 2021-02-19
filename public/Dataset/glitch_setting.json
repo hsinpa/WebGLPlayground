@@ -2,8 +2,8 @@
     "strength" : 0.03,
     "canvas_domQuery" : ".glitch_canvas_2d",
     "webgl_domQuery" : ".glitch_canvas_webgl",
-    "noiseTex" : "../image/BayerMatrix.jpg",
-    "distortTex" : "../image/cloud_transition.jpg",
+    "noiseTex" : "image/BayerMatrix.jpg",
+    "distortTex" : "image/cloud_transition.jpg",
     "components" : [
         {
             "query" : ".glitch_panel[name='touhou_6']",
