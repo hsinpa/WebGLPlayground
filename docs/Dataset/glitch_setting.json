@@ -2,7 +2,7 @@
     "strength" : 0.03,
     "canvas_domQuery" : ".glitch_canvas_2d",
     "webgl_domQuery" : ".glitch_canvas_webgl",
-    "noiseTex" : "../image/DissolvePattern.jpg",
+    "noiseTex" : "../image/BayerMatrix.jpg",
     "distortTex" : "../image/cloud_transition.jpg",
     "components" : [
         {
