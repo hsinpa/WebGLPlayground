@@ -1,0 +1,21 @@
+{
+    "strength" : 0.03,
+    "canvas_domQuery" : ".fIsland_canvas_2d",
+    "webgl_domQuery" : ".fIsland_canvas_webgl",
+    "noiseTex" : "image/close-up-white-marble-textured-wall.jpg",
+    "distortTex" : "image/noisecloudsanim.jpg",
+    "components" : [
+        {
+            "query" : ".glitch_panel[name='touhou_6']",
+            "mainTex" : "./image/Art/floating_island.png"
+        },
+        {
+            "query" : ".glitch_panel[name='touhou_7']",
+            "mainTex" : "./image/ADP9_Clone/Th07Main.jpg"
+        },
+        {
+            "query" : ".glitch_panel[name='touhou_8']",
+            "mainTex" : "./image/ADP9_Clone/Th08Main.jpg"
+        }
+    ]
+}

@@ -2,6 +2,7 @@ import DeepParallel from '../DeepParallel/DeepParallel';
 import BubbleEffect2D from '../BubbleEffect2D/BubbleEffect2D';
 import SlideEffectAD from '../SlideEffect_AD/SlideEffectAD';
 import GlitchEffect from '../GlitchEffect/GlitchEffect';
+import FloatingIsland from '../FloatingIsland/FloatingIsland';
 
 export function ParallelBubbleSetUp() {
     //===================== Parallel Effect SetUp Script =====================
@@ -111,7 +112,33 @@ export function GlitchEffectSetUp() {
             glitchEffect.webglTransition = (x);
         });
     });
+}
 
+export function FloatingIslandSetUp() {
+    let vertFilePath = "./glsl/simple_texture.vert", fragFilePath = "./glsl/floating_island_effect.frag";
+    fetch('./Dataset/fIsland_setting.json')
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(myJson) {
+        let floatingIsland = new FloatingIsland(myJson, vertFilePath, fragFilePath);
+
+        SetDomInputValue("strength", (x) => {
+            floatingIsland.webglStrength = (x);
+        });
+
+        SetDomInputValue("sea_level", (x) => {
+            floatingIsland.webglDisplacement = (x);
+        });
+
+        SetDomInputValue("speed", (x) => {
+            floatingIsland.webglSpeed = (x);
+        });
+
+        SetDomInputValue("scale", (x) => {
+            floatingIsland.webglScale = (x);
+        });
+    });
 }
 
 export function SetDomInputValue(inputName : string, callback : (x : number) => void ) {

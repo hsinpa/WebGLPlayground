@@ -1,7 +1,7 @@
 {
   "inputs": {
     "dist/stylesheet/main.css": {
-      "bytes": 1969,
+      "bytes": 1988,
       "imports": []
     },
     "dist/Hsinpa/UtilityMethod.js": {
@@ -57,7 +57,7 @@
       ]
     },
     "_snowpack/pkg/popmotion.js": {
-      "bytes": 34295,
+      "bytes": 34245,
       "imports": []
     },
     "dist/SlideEffect_AD/SlideEffectAnimation.js": {
@@ -162,8 +162,37 @@
         }
       ]
     },
+    "dist/FloatingIsland/FIslandREGL.js": {
+      "bytes": 1144,
+      "imports": []
+    },
+    "dist/FloatingIsland/FloatingIsland.js": {
+      "bytes": 3174,
+      "imports": [
+        {
+          "path": "dist/Hsinpa/WebGL/WebglCanvas.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/Hsinpa/WebGL/WebglUtility.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/FloatingIsland/FIslandREGL.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/GlitchEffect/GlitchInfo.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "dist/Hsinpa/UtilityMethod.js",
+          "kind": "import-statement"
+        }
+      ]
+    },
     "dist/Sample/index.js": {
-      "bytes": 3941,
+      "bytes": 4718,
       "imports": [
         {
           "path": "dist/DeepParallel/DeepParallel.js",
@@ -180,11 +209,15 @@
         {
           "path": "dist/GlitchEffect/GlitchEffect.js",
           "kind": "import-statement"
+        },
+        {
+          "path": "dist/FloatingIsland/FloatingIsland.js",
+          "kind": "import-statement"
         }
       ]
     },
     "dist/index.js": {
-      "bytes": 677,
+      "bytes": 800,
       "imports": [
         {
           "path": "dist/stylesheet/main.css",
@@ -242,7 +275,7 @@
           "bytesInOutput": 792
         },
         "_snowpack/pkg/popmotion.js": {
-          "bytesInOutput": 13486
+          "bytesInOutput": 13489
         },
         "dist/SlideEffect_AD/SlideEffectAnimation.js": {
           "bytesInOutput": 132
@@ -268,23 +301,29 @@
         "dist/GlitchEffect/GlitchEffect.js": {
           "bytesInOutput": 1851
         },
+        "dist/FloatingIsland/FIslandREGL.js": {
+          "bytesInOutput": 631
+        },
+        "dist/FloatingIsland/FloatingIsland.js": {
+          "bytesInOutput": 1777
+        },
         "dist/Sample/index.js": {
-          "bytesInOutput": 2168
+          "bytesInOutput": 2515
         },
         "dist/index.js": {
-          "bytesInOutput": 186
+          "bytesInOutput": 245
         }
       },
-      "bytes": 184761
+      "bytes": 187578
     },
     "../~~bundle~~/dist/index.css": {
       "imports": [],
       "inputs": {
         "dist/stylesheet/main.css": {
-          "bytesInOutput": 1937
+          "bytesInOutput": 1956
         }
       },
-      "bytes": 1938
+      "bytes": 1957
     },
     "../~~bundle~~/regl_sample.html.inline.0.css": {
       "imports": [],

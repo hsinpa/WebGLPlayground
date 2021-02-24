@@ -1,0 +1,31 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Floating Island</title>
+</head>
+<body>
+    <canvas class="fIsland_canvas_2d"></canvas>
+    <canvas class="fIsland_canvas_webgl"></canvas>
+
+    <div class="control_bar">
+        <h3>Control Panel</h3>
+        <label name="strength">Strength</label><br>
+        <input type="range" min="0" max="10" step="0.01" value="1" class="slider" name="strength">
+        <br>
+
+        <label name="speed">Wave Speed</label><br>
+        <input type="range" min="0" max="10" step="0.01" value="1" class="slider" name="speed">
+        <br>
+
+        <label name="sea_level">Wave Sea Level</label><br>
+        <input type="range" min="0" max="0.8" step="0.01" value="0.4" class="slider" name="sea_level">
+        <br>
+
+        <label name="scale">Scale</label><br>
+        <input type="range" min="0" max="2" step="0.01" value="1" class="slider" name="scale">
+        <br>
+    </div>
+
+    <script type="module" src="./dist/index.js"></script>
+</body>
+</html>
